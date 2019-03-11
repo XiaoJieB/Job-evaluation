@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student{
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -30,17 +30,11 @@ public class Student {
 	@Column(name = "phone")
 	private String phone;
 
-	private String stuNo;
+	private String number;
 
 	private String scoreId;
 
-	public String getScoreId() {
-		return scoreId;
-	}
-
-	public void setScoreId(String scoreId) {
-		this.scoreId = scoreId;
-	}
+	private String password;
 
 	public Long getId() {
 		return id;
@@ -48,6 +42,22 @@ public class Student {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getScoreId() {
+		return scoreId;
+	}
+
+	public void setScoreId(String scoreId) {
+		this.scoreId = scoreId;
 	}
 
 	public Long getCreated() {
@@ -74,11 +84,11 @@ public class Student {
 		this.phone = phone;
 	}
 
-	public String getStuNo() {
-		return stuNo;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setStuNo(String stuNo) {
-		this.stuNo = stuNo;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 }

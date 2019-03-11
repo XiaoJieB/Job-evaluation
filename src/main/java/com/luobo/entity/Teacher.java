@@ -32,7 +32,7 @@ public class Teacher {
 	@Column(name = "phone")
 	private String phone;
 
-	private String teachNo;
+	private String number;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST })
 	@JoinTable(name = "teachers_students", joinColumns = {
@@ -40,13 +40,7 @@ public class Teacher {
 		, inverseJoinColumns = { @JoinColumn(name = "student_id") })
 	private Set<Student> students;
 
-	public Set<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
+	private String password;
 
 	public Long getId() {
 		return id;
@@ -54,6 +48,22 @@ public class Teacher {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
 	}
 
 	public Long getCreated() {
@@ -80,11 +90,11 @@ public class Teacher {
 		this.phone = phone;
 	}
 
-	public String getTeachNo() {
-		return teachNo;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setTeachNo(String teachNo) {
-		this.teachNo = teachNo;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 }
