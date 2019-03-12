@@ -8,7 +8,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +19,7 @@
 <center>
     <form action="login.action" method="post" id="loginForm">
         <span>用户：</span><input type="text" name="type"/><br>
-        <span>用户名：</span><input type="text" name="number" id="username"/><br>
+        <span>用户名：</span><input type="text" name="number" id="number"/><br>
         <span>密码:</span><input type="password" name="password" id="password"/>
         <input type="submit" value="提交"/>
     </form>
@@ -31,31 +30,48 @@
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-      var $password = $("#password");
-
-      $("#loginForm").submit(function () {
-        if ($("#username").val() == "") {
-          swal("Title", "用户名不能为空", "error");
-          return false;
+  var form = $("#loginForm");
+  $(function () {
+    form.validate({
+      submitHandler: function () {
+        $.ajax({
+          type: "POST",
+          data:{"number":$("#number").val(),"password":$("#password").val()},
+          async: false,
+          url: "login.action",
+          success:function (data) {
+            if(data.code == "0") {
+              window.location.href = "student/list";
+            } else {
+              swal("警告",data.msg,"error");
+            }
+          }
+        });
+        return false;
+      },
+      rules: {
+        number:{
+          required:true,
+          minlength: 3,
+          maxlength:3
+        },
+        password:{
+          required:true,
+          // isMobile : true
         }
-        // if ($password.val() == "") {
-        //   Dialog.alert("密码不能为空");
-        //   return false;
-        // }
-        // var option = {
-        //
-        //   success: function (data) {
-        //     if (data.result == 'error') {
-        //       Dialog.alert(data.content);
-        //     } else {
-        //     }
-        //   }
-        // };
-        // $(this).ajaxSubmit(option);
-        // return false;
-      });
-    })
+      },
+      messages: {
+        number:{
+          required:"10位数",
+        },
+        password:{
+          required:"必填",
+          // isMobile : "请正确填写手机号码"
+        }
+      }
+    });
+
+  })
 
 </script>
 </body>
