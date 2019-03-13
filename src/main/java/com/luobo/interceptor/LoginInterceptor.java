@@ -1,10 +1,10 @@
 package com.luobo.interceptor;
 
+import com.luobo.util.Constants;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import com.luobo.util.Constants;
 
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(arg0.getSession().getAttribute(Constants.USER_CONTEXT)!=null) {
             return true;
         }
-        arg1.sendRedirect("/index.jsp");
+        arg1.sendRedirect("/login/login.jsp");
         return false;
     }
 

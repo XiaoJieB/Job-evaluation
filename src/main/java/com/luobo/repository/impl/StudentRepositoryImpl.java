@@ -34,7 +34,10 @@ public class StudentRepositoryImpl implements StudentRepository {
 	}
 
 	public List<Student> findAll() {
-		return null;
+		String hql = "from Student s";
+		Query query = getCurrentSession().createQuery(hql);
+		List<Student> students = query.list();
+		return students;
 	}
 
 	public void persist(Student entity) {

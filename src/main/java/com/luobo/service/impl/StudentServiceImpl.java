@@ -3,6 +3,7 @@ package com.luobo.service.impl;
 import com.luobo.entity.Student;
 import com.luobo.repository.StudentRepository;
 import com.luobo.service.StudentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +27,10 @@ public class StudentServiceImpl implements StudentService {
 
 	public Student findByNo(String no){
 		return studentRepository.findByNo(no);
+	}
+
+	@Override
+	public List<Student> findAll(){
+		return studentRepository.findAll();
 	}
 }

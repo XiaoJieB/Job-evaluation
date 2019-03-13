@@ -30,7 +30,7 @@ public class LoginController{
 			return result;
 		}
 		if (stu.getPassword().equals(student.getPassword())) {
-			setSessionStudent(request, student);
+			setSessionStudent(request, stu);
 			result.put("msg", "参数不合法！");
 			result.put("code", "0");
 			return result;
@@ -42,11 +42,8 @@ public class LoginController{
 	}
 	@RequestMapping("/logout.action")
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
-		Student student=getSessionStudent(request);
-		System.out.println(student.getNumber());
-		System.err.println(student.getPassword());
 		setSessionStudent(request, null);
-		return "logout";
+		return "login/login";
 	}
 
 	public void setSessionStudent(HttpServletRequest request,Student student) {

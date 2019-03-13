@@ -8,5 +8,5 @@ package com.luobo.util;
  */
 public class Constants {
 	//用户域
-	public final static String STUDENT_CONTEXT="student_context";
+	public final static String STUDENT_CONTEXT="student";
 }
