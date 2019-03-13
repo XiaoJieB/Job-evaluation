@@ -18,7 +18,8 @@
 <body>
 <center>
     <form action="login.action" method="post" id="loginForm">
-        <span>用户：</span><input type="text" name="type"/><br>
+        <span>用户：</span><input name="type" type="radio" checked="checked" value="0"/>学生
+        <input name="type" type="radio" value="1"/>老师<br>
         <span>用户名：</span><input type="text" name="number" id="number"/><br>
         <span>密码:</span><input type="password" name="password" id="password"/>
         <input type="submit" value="提交"/>
@@ -34,19 +35,35 @@
   $(function () {
     form.validate({
       submitHandler: function () {
-        $.ajax({
-          type: "POST",
-          data:{"number":$("#number").val(),"password":$("#password").val()},
-          async: false,
-          url: "login.action",
-          success:function (data) {
-            if(data.code == "0") {
-              window.location.href = "student/list";
-            } else {
-              swal("警告",data.msg,"error");
+        if ($('input:radio:checked').val() == "0") {
+          $.ajax({
+            type: "POST",
+            data:{"number":$("#number").val(),"password":$("#password").val()},
+            async: false,
+            url: "/ssh/student/login.action",
+            success:function (data) {
+              if(data.code == "0") {
+                window.location.href = "/ssh/student/list";
+              } else {
+                swal("警告",data.msg,"error");
+              }
             }
-          }
-        });
+          });
+        } else {
+          $.ajax({
+            type: "POST",
+            data:{"number":$("#number").val(),"password":$("#password").val()},
+            async: false,
+            url: "/ssh/teacher/login.action",
+            success:function (data) {
+              if(data.code == "0") {
+                window.location.href = "/ssh/teacher/list";
+              } else {
+                swal("警告",data.msg,"error");
+              }
+            }
+          });
+        }
         return false;
       },
       rules: {

@@ -20,8 +20,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(arg0.getRequestURI().indexOf("login.action")>0) {
             return true;
         }
-        System.out.println(arg0.getSession().getAttribute(Constants.USER_CONTEXT)+"<<<<<<<<");
-        if(arg0.getSession().getAttribute(Constants.USER_CONTEXT)!=null) {
+//        System.out.println(arg0.getSession().getAttribute(Constants.USER_CONTEXT)+"<<<<<<<<");
+        if(arg0.getSession().getAttribute(Constants.STUDENT_CONTEXT)!=null ||
+            arg0.getSession().getAttribute(Constants.TEACHER_CONTEXT)!=null) {
             return true;
         }
         arg1.sendRedirect("/login/login.jsp");

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by XRog
+ * Created by ws
  * On 2/2/2017.2:28 PM
  */
 public interface BaseRepository<T,PK extends Serializable>{

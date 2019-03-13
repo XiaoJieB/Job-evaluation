@@ -15,11 +15,11 @@
 </head>
 <body>
 <div class="container">
-    <h1>大作业评价系统-学生操作页面</h1>
+    <h1>大作业评价系统-教师管理页面</h1>
     <hr/>
-    <h2>当前登陆用户：${student.name}</h2>
+    <h2>当前登陆用户：${teacher.name}</h2>
     <hr/>
-    <h3><a href="/admin/students/add" type="button" class="btn btn-primary btn-sm">上交作业</a>
+    <h3><a href="/admin/teachers/add" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -35,16 +35,16 @@
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${studentList}" var="student">
+            <c:forEach items="${teacherList}" var="teacher">
                 <tr>
-                    <td>${student.number}</td>
-                    <td>${student.name}</td>
+                    <td>${teacher.number}</td>
+                    <td>${teacher.name}</td>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="/admin/students/show/${student.id}" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/students/update/${student.id}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/students/delete/${student.id}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/admin/teachers/show/${teacher.id}" type="button" class="btn btn-sm btn-success">详情</a>
+                        <a href="/admin/teachers/update/${teacher.id}" type="button" class="btn btn-sm btn-warning">修改</a>
+                        <a href="/admin/teachers/delete/${teacher.id}" type="button" class="btn btn-sm btn-danger">删除</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -56,6 +56,17 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    // $("#logout").click(function () {
+    //   $.ajax({
+    //     type: "POST",
+    //     async: false,
+    //     data:{},
+    //     url: "http://localhost:8080/ssh/logout.action"
+    //   });
+    // })
+</script>
 </body>
 </html>
 

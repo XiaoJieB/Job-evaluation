@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * Created by XRog
+ * Created by ws
  * On 2/2/2017.2:03 PM
  */
 @Data
