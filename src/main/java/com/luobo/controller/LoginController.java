@@ -70,7 +70,7 @@ public class LoginController{
 	}
 
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response) {
+	public String logout(HttpServletRequest request) {
 		getSessionStudent(request);
 		if (getSessionStudent(request) != null) {
 			setSessionStudent(request, null);
