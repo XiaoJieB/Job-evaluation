@@ -9,7 +9,8 @@
     <title>大作业评价系统</title>
 
     <link rel="stylesheet" href="/ssh/css/bootstrap.css">
-
+    <script src="/ssh/js/jquery.min.js"></script>
+    <script src="/ssh/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">
@@ -17,7 +18,7 @@
     <hr/>
     <h2>当前登陆用户：${student.name}</h2>
     <hr/>
-    <h3><a href="/admin/students/add" type="button" class="btn btn-primary btn-sm">上交作业</a>
+    <h3><a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -26,6 +27,7 @@
 
         <table class="table table-bordered table-striped">
             <tr>
+                <th style="display: none">ID</th>
                 <th>学号</th>
                 <th>姓名</th>
                 <th>作业</th>
@@ -35,6 +37,7 @@
 
             <c:forEach items="${studentList}" var="student">
                 <tr>
+                    <td style="display: none">${student.id}</td>
                     <td>${student.number}</td>
                     <td>${student.name}</td>
                     <td></td>
@@ -48,9 +51,21 @@
             </c:forEach>
         </table>
 </div>
+<script>
+    registerEvent();
 
-<script src="/ssh/js/jquery.min.js"></script>
-<script src="/ssh/js/bootstrap.js"></script>
+    function registerEvent() {
+      $("#addBigWork").click(function () {
+        window.location.href = "/ssh/student/addBigWork?studentId=" + ${student.id};
+        <%--$.ajax({--%>
+          <%--type: "POST",--%>
+          <%--data:{"studentId":${student.id}},--%>
+          <%--async: false,--%>
+          <%--url: "/ssh/student/addBigWork",--%>
+        <%--});--%>
+      })
+    }
+</script>
 </body>
 </html>
 

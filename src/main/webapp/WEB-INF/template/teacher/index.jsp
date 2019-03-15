@@ -43,6 +43,10 @@
         <div id="jquery-accordion-menu" class="jquery-accordion-menu white">
         <div class="jquery-accordion-menu-header" id="form"></div>
         <ul id="demo-list">
+            <li><a href="#"><i class="fa fa-file-image-o"></i>消息 </a>
+                <span class="jquery-accordion-menu-label">
+                12 </span>
+            </li>
             <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                 <ul class="submenu">
                     <li><a href="#">发布作业</a></li>
@@ -71,6 +75,9 @@
                     <li><a href="#">评价学生</a></li>
                     <li><a href="#">统计</a></li>
                 </ul>
+            </li>
+
+            <li><a href="/ssh/logout"><i class="fa fa-file-image-o"></i>退出</a>
             </li>
         </ul>
         <div class="jquery-accordion-menu-footer">
