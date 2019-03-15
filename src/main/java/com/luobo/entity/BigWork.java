@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +33,44 @@ public class BigWork {
 	private String imgSrc;
 
 	private Long studentId;
+
+	private Type type;
+
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private Teacher teacher;
+
+	public enum Type{
+		project,//工程设计
+		paper,//学术论文
+		experiment//综合实验
+	}
+
+	private String remark;
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
 
 	public Long getStudentId() {
 		return studentId;

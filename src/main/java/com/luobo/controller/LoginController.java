@@ -9,7 +9,6 @@ import com.luobo.util.Constants;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,9 @@ public class LoginController{
 
 	@Autowired
 	StudentService studentService;
+
+	@Autowired
+	TeacherService teacherService;
 
 	@RequestMapping("/student/login.action")
 	@ResponseBody
@@ -42,10 +44,6 @@ public class LoginController{
 			return result;
 		}
 	}
-
-
-	@Autowired
-	TeacherService teacherService;
 
 	@RequestMapping("/teacher/login.action")
 	@ResponseBody

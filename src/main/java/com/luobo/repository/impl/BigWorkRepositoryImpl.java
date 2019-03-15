@@ -1,13 +1,13 @@
 package com.luobo.repository.impl;
 
-import com.luobo.repository.BigWorkRepository;
 import com.luobo.entity.BigWork;
+import com.luobo.repository.BigWorkRepository;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by ws
@@ -54,5 +54,14 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 
 	public void flush() {
 		getCurrentSession().flush();
+	}
+
+	@Override
+	public List<BigWork> findAllByTeacher(Long teacherId) {
+		String hql = "from BigWork b where b.teacher.id = :teacherId";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("teacherId",teacherId);
+		List<BigWork> bigWorks = query.list();
+		return bigWorks;
 	}
 }

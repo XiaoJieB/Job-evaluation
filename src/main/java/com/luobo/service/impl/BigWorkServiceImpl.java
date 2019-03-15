@@ -3,6 +3,7 @@ package com.luobo.service.impl;
 import com.luobo.entity.BigWork;
 import com.luobo.repository.BigWorkRepository;
 import com.luobo.service.BigWorkService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,10 @@ public class BigWorkServiceImpl implements BigWorkService {
 
 	public Long save(BigWork bigWork) {
 		return bigWorkRepository.save(bigWork);
+	}
+
+	@Override
+	public List<BigWork> findAllByTeacher(Long teacherId){
+		return bigWorkRepository.findAllByTeacher(teacherId);
 	}
 }

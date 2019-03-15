@@ -2,12 +2,13 @@ package com.luobo.controller;
 
 import com.luobo.entity.BigWork;
 import com.luobo.entity.Student;
-import com.luobo.repository.StudentRepository;
 import com.luobo.service.BigWorkService;
+import com.luobo.service.StudentService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,17 +26,23 @@ public class BigWorkController {
 	BigWorkService bigWorkService;
 
 	@Autowired
-	StudentRepository studentRepository;
+	StudentService studentService;
 
 	@RequestMapping("/save")
 	@ResponseBody
 	public Map<String,Object> addJobLink(BigWork bigWork) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		bigWorkService.save(bigWork);
-		Student student = studentRepository.get(bigWork.getStudentId());
+		Student student = studentService.find(bigWork.getStudentId());
 		student.setBigWork(bigWork);
 		result.put("msg", "大作业上传成功！");
 		result.put("code", "0");
 		return result;
+	}
+
+	@RequestMapping("/findAllByTeacher")
+	public String findAllByTeacher(ModelMap map, Long teacherId) {
+		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacherId));
+		return "teacher/BigWorkList";
 	}
 }

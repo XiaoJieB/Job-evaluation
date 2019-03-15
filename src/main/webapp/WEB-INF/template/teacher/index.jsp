@@ -12,6 +12,10 @@
     <link href="/ssh/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" />
     <link href="/ssh/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
+    <script src="/ssh/js/jquery.min.js"></script>
+    <script src="/ssh/js/bootstrap.js"></script>
+    <script src="/ssh/js/jquery-accordion-menu.js" type="text/javascript"></script>
+
         <style type="text/css">
                               *{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
         body{background:#f0f0f0;}
@@ -49,7 +53,7 @@
             </li>
             <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                 <ul class="submenu">
-                    <li><a href="#">发布作业</a></li>
+                    <li><a href="#" id="workList">发布作业</a></li>
                     <li><a href="#">修改作业</a>
                         <%--<ul class="submenu">--%>
                             <%--<li><a href="#">Photoshop </a></li>--%>
@@ -112,14 +116,6 @@
     </div>
 </div>
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/ssh/js/jquery.min.js"></script>
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/ssh/js/bootstrap.js"></script>
-
-<script src="/ssh/js/jquery-accordion-menu.js" type="text/javascript"></script>
-
 <script type="text/javascript">
   jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
 </script>
@@ -130,6 +126,10 @@
     $("#demo-list li").click(function(){
       $("#demo-list li.active").removeClass("active")
       $(this).addClass("active");
+    })
+
+    $("#workList").click(function () {
+      window.location.href = "/ssh/bigWork/findAllByTeacher?teacherId=" + ${teacher.id};
     })
   })
 </script>
