@@ -44,17 +44,31 @@ public class BigWorkController {
 	}
 
 	@RequestMapping("/findAllByTeacher")
-	public String findAllByTeacher(ModelMap map, Long teacherId) {
-		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacherId));
+	public String findAllByTeacher(ModelMap map, HttpServletRequest request) {
+		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
 		return "teacher/BigWorkList";
 	}
 
 	@RequestMapping("/addBigWork")
-	public String addBigWork(ModelMap map,BigWork bigWork, HttpServletRequest request) {
+	@ResponseBody
+	public Map<String,Object> addBigWork(BigWork bigWork, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
 		bigWork.setTeacher(teacher);
 		bigWorkService.save(bigWork);
-		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
-		return "teacher/BigWorkList";
+		result.put("msg", "大作业新增成功！");
+		result.put("code", "0");
+		return result;
+	}
+
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Map<String,Object> deleteBigWork(Long workId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		bigWorkService.delete(workId);
+		result.put("msg", "大作业删除成功！");
+		result.put("code", "0");
+		return result;
 	}
 }

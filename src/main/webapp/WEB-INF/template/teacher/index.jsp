@@ -53,13 +53,7 @@
             </li>
             <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                 <ul class="submenu">
-                    <li><a href="#" id="workList">作业列表</a></li>
-                    <li><a href="#">发布作业</a>
-                        <%--<ul class="submenu">--%>
-                            <%--<li><a href="#">Photoshop </a></li>--%>
-                            <%--<li><a href="#">Fonts </a></li>--%>
-                        <%--</ul>--%>
-                    </li>
+                    <li><a href="/ssh/bigWork/findAllByTeacher">作业列表</a></li>
                     <li><a href="#">删除作业</a></li>
                     <li><a href="#">上传控制</a></li>
                     <li><a href="#">评价控制</a></li>
@@ -126,10 +120,6 @@
     $("#demo-list li").click(function(){
       $("#demo-list li.active").removeClass("active")
       $(this).addClass("active");
-    })
-
-    $("#workList").click(function () {
-      window.location.href = "/ssh/bigWork/findAllByTeacher?teacherId=" + ${teacher.id};
     })
   })
 </script>

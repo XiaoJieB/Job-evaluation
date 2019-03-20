@@ -15,6 +15,8 @@
     <script src="/ssh/js/jquery.min.js"></script>
     <script type="text/javascript" src="/ssh/js/jquery.validate.min.js"></script>
     <script src="/ssh/js/bootstrap.js"></script>
+    <script src="/ssh/js/sweet-alert.js"></script>
+    <link rel="stylesheet" type="text/css" href="/ssh/css/sweet-alert.css">
     <script src="/ssh/js/jquery-accordion-menu.js" type="text/javascript"></script>
 
     <style type="text/css">
@@ -54,9 +56,7 @@
                 </li>
                 <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                     <ul class="submenu">
-                        <li><a href="#">作业列表</a></li>
-                        <li><a href="/ssh/bigWork/addBigWork">发布作业</a>
-                        </li>
+                        <li><a href="/ssh/bigWork/findAllByTeacher">作业列表</a></li>
                         <li><a href="#">删除作业</a></li>
                         <li><a href="#">上传控制</a></li>
                         <li><a href="#">评价控制</a></li>
@@ -102,9 +102,10 @@
                     <td style="display: none">${work.id}</td>
                     <td>${work.name}</td>
                     <td>
-                        <a href="/admin/works/show/${work.id}" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/works/update/${work.id}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/works/delete/${work.id}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="#" type="button" class="btn btn-sm btn-success view" id="view" name="${work.id}">详情</a>
+                        <a href="/ssh/works/update/${work.id}" type="button" class="btn btn-sm btn-warning">修改</a>
+                        <a href="#" type="button" class="btn btn-sm btn-danger delete"
+                           name="${work.id}">删除</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -161,7 +162,7 @@
             url: "/ssh/bigWork/addBigWork",
             success:function (data) {
               if(data.code == "0") {
-                window.location.href = "/ssh/student/list";
+                window.location.href = "/ssh/bigWork/findAllByTeacher";
               } else {
                 swal("警告",data.msg,"error");
               }
@@ -198,6 +199,24 @@
       $('#goBack').on('click', function () {
         $("#myModal").modal('hide');
       });
+      $(".view").on('click', function () {
+            var id = this.name;
+      })
+      $(".delete").click(function () {
+        $.ajax({
+          type: "POST",
+          data:{"workId":this.name},
+          async: false,
+          url: "/ssh/bigWork/delete",
+          success:function (data) {
+            if(data.code == "0") {
+              window.location.href = "/ssh/bigWork/findAllByTeacher";
+            } else {
+              swal("警告",data.msg,"error");
+            }
+          }
+        });
+      })
     }
 
 
