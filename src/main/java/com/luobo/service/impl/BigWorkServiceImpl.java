@@ -25,4 +25,9 @@ public class BigWorkServiceImpl implements BigWorkService {
 	public List<BigWork> findAllByTeacher(Long teacherId){
 		return bigWorkRepository.findAllByTeacher(teacherId);
 	}
+
+	@Override
+	public void delete(Long workId) {
+		bigWorkRepository.delete(workId);
+	}
 }

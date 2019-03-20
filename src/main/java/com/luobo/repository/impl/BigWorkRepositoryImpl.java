@@ -48,8 +48,8 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 	}
 
 	public void delete(Long id) {
-		BigWork bigWork = load(id);
-		getCurrentSession().delete(bigWork);
+		String hql = "delete from BigWork b where b.id = :id";
+		getCurrentSession().createQuery(hql).setParameter("id",id).executeUpdate();
 	}
 
 	public void flush() {

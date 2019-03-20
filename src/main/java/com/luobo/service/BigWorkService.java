@@ -7,4 +7,6 @@ public interface BigWorkService {
 	Long save(BigWork bigWork);
 
 	List<BigWork> findAllByTeacher(Long teacherId);
+
+	void delete(Long workId);
 }
