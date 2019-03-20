@@ -20,7 +20,7 @@
     <hr/>
     <h3><a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
-        <a href="/report/export" type="button" class="btn btn-primary btn-sm">互评</a>
+        <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
         <a href="/ssh/logout" type="button" class="btn btn-primary btn-sm">退出</a>
     </h3>
@@ -40,12 +40,14 @@
                     <td style="display: none">${student.id}</td>
                     <td>${student.number}</td>
                     <td>${student.name}</td>
-                    <td></td>
+                    <td>
+                        <a href="#" type="button" class="btn btn-sm btn-success">浏览</a>
+                    </td>
                     <td></td>
                     <td>
-                        <a href="/admin/students/show/${student.id}" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/students/update/${student.id}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/students/delete/${student.id}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/admin/students/show/${student.id}" type="button" class="btn btn-sm btn-warning">评分</a>
+                        <%--<a href="/admin/students/update/${student.id}" type="button" class="btn btn-sm btn-warning">修改</a>--%>
+                        <%--<a href="/admin/students/delete/${student.id}" type="button" class="btn btn-sm btn-danger">删除</a>--%>
                     </td>
                 </tr>
             </c:forEach>

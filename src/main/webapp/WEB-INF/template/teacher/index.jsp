@@ -53,8 +53,8 @@
             </li>
             <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                 <ul class="submenu">
-                    <li><a href="#" id="workList">发布作业</a></li>
-                    <li><a href="#">修改作业</a>
+                    <li><a href="#" id="workList">作业列表</a></li>
+                    <li><a href="#">发布作业</a>
                         <%--<ul class="submenu">--%>
                             <%--<li><a href="#">Photoshop </a></li>--%>
                             <%--<li><a href="#">Fonts </a></li>--%>

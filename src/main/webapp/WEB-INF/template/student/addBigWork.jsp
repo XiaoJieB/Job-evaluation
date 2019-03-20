@@ -25,7 +25,7 @@
     <hr/>
     <h3><a href="#" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
-        <a href="/report/export" type="button" class="btn btn-primary btn-sm">互评</a>
+        <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
         <a href="/ssh/logout" type="button" class="btn btn-primary btn-sm">退出</a>
     </h3>

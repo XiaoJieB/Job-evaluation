@@ -2,10 +2,13 @@ package com.luobo.controller;
 
 import com.luobo.entity.BigWork;
 import com.luobo.entity.Student;
+import com.luobo.entity.Teacher;
 import com.luobo.service.BigWorkService;
 import com.luobo.service.StudentService;
+import com.luobo.util.Constants;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,6 +46,15 @@ public class BigWorkController {
 	@RequestMapping("/findAllByTeacher")
 	public String findAllByTeacher(ModelMap map, Long teacherId) {
 		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacherId));
+		return "teacher/BigWorkList";
+	}
+
+	@RequestMapping("/addBigWork")
+	public String addBigWork(ModelMap map,BigWork bigWork, HttpServletRequest request) {
+		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+		bigWork.setTeacher(teacher);
+		bigWorkService.save(bigWork);
+		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
 		return "teacher/BigWorkList";
 	}
 }
