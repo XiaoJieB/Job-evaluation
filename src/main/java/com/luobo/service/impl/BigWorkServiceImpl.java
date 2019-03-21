@@ -43,4 +43,9 @@ public class BigWorkServiceImpl implements BigWorkService {
 	public void update(BigWork bigWork) {
 		bigWorkRepository.update(bigWork);
 	}
+
+	@Override
+	public List<BigWork> findAll() {
+		return bigWorkRepository.findAll();
+	}
 }

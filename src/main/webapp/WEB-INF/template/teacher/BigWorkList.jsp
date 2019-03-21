@@ -66,9 +66,9 @@
                     <span class="jquery-accordion-menu-label">
                 12 </span>
                 </li>
-                <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
+                <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                     <ul class="submenu">
-                        <li><a href="/ssh/bigWork/findAllByTeacher">作业列表</a></li>
+                        <li><a href="/ssh/bigWork/findAllByTeacher">课题列表</a></li>
                         <li><a href="#">上传控制</a></li>
                         <li><a href="#">评价控制</a></li>
                     </ul>
@@ -99,12 +99,12 @@
     </div>
     <div class="col-md-8  col-md-offset-1 container">
         <button type="button" class="btn btn-primary btn-lg add">
-            发布作业
+            发布课题
         </button>
         <table class="table table-bordered table-striped">
             <tr>
                 <th style="display: none">ID</th>
-                <th>作业名称</th>
+                <th>课题名称</th>
                 <th>操作</th>
             </tr>
 
@@ -134,19 +134,19 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">发布作业</h4>
+                <h4 class="modal-title" id="myModalLabel">发布课题</h4>
             </div>
             <div class="modal-body">
                 <form action="#" method="post" id="addWorkForm">
                     <div class="form-group">
-                        <label>作业名称:</label>
+                        <label>课题名称:</label>
                         <input type="text" class="form-control" id="name" name="name"
                                placeholder="Enter Nickname:"/>
                     </div>
                     <input type="text" class="form-control" id="id"
                            style="display: none"/>
                     <div class="form-group">
-                        <label>作业声明:</label>
+                        <label>课题声明:</label>
                         <textarea type="text" class="form-control" id="remark" name="remark"
                                   placeholder="Enter FirstName:"></textarea>
                     </div>
@@ -218,8 +218,9 @@
         $("#myModal").modal('hide');
       });
       $(".add").on('click', function () {
-        $("#myModalLabel").html("新增作业");
+        $("#myModalLabel").html("新增课题");
         url = "/ssh/bigWork/save";
+        form[0].reset();
         $("#myModal").modal('show');
       })
       $(".view").on('click', function () {
@@ -233,7 +234,7 @@
             if (data.code == "0") {
               $("#name").val(data.name);
               $("#remark").val(data.remark);
-              $("#myModalLabel").html("查看作业");
+              $("#myModalLabel").html("查看课题");
               $("button[type]:submit").attr("disabled","disabled");
               $("#myModal").modal('show');
             } else {
@@ -254,7 +255,7 @@
               $("#id").val(data.id);
               $("#name").val(data.name);
               $("#remark").val(data.remark);
-              $("#myModalLabel").html("修改作业");
+              $("#myModalLabel").html("修改课题");
               $("button[type]:submit").removeAttr("disabled");
               url = "/ssh/bigWork/update";
               $("#myModal").modal('show');

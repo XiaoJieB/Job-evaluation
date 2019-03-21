@@ -15,4 +15,6 @@ public interface BigWorkService {
 	BigWork load(Long workId);
 
 	void update(BigWork bigWork);
+
+	List<BigWork> findAll();
 }

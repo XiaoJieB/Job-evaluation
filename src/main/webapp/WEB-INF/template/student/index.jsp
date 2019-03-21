@@ -18,7 +18,9 @@
     <hr/>
     <h2>当前登陆用户：${student.name}</h2>
     <hr/>
-    <h3><a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
+    <h3>
+        <a href="/ssh/bigWork/chooseWork" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
+        <a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -46,8 +48,6 @@
                     <td></td>
                     <td>
                         <a href="/admin/students/show/${student.id}" type="button" class="btn btn-sm btn-warning">评分</a>
-                        <%--<a href="/admin/students/update/${student.id}" type="button" class="btn btn-sm btn-warning">修改</a>--%>
-                        <%--<a href="/admin/students/delete/${student.id}" type="button" class="btn btn-sm btn-danger">删除</a>--%>
                     </td>
                 </tr>
             </c:forEach>
@@ -59,12 +59,6 @@
     function registerEvent() {
       $("#addBigWork").click(function () {
         window.location.href = "/ssh/student/addBigWork?studentId=" + ${student.id};
-        <%--$.ajax({--%>
-          <%--type: "POST",--%>
-          <%--data:{"studentId":${student.id}},--%>
-          <%--async: false,--%>
-          <%--url: "/ssh/student/addBigWork",--%>
-        <%--});--%>
       })
     }
 </script>

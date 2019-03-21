@@ -32,7 +32,10 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 	}
 
 	public List<BigWork> findAll() {
-		return null;
+		String hql = "from BigWork";
+		Query query = getCurrentSession().createQuery(hql);
+		List<BigWork> bigWorks = query.list();
+		return bigWorks;
 	}
 
 	public void persist(BigWork entity) {

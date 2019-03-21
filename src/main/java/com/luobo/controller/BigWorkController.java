@@ -1,7 +1,6 @@
 package com.luobo.controller;
 
 import com.luobo.entity.BigWork;
-import com.luobo.entity.Student;
 import com.luobo.entity.Teacher;
 import com.luobo.service.BigWorkService;
 import com.luobo.service.StudentService;
@@ -85,5 +84,11 @@ public class BigWorkController {
 		result.put("msg", "大作业更新成功！");
 		result.put("code", "0");
 		return result;
+	}
+
+	@RequestMapping("/chooseWork")
+	public String chooseWork(ModelMap map) {
+		map.addAttribute("workList",bigWorkService.findAll());
+		return "student/chooseWork";
 	}
 }

@@ -51,9 +51,9 @@
                 <span class="jquery-accordion-menu-label">
                 12 </span>
             </li>
-            <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
+            <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                 <ul class="submenu">
-                    <li><a href="/ssh/bigWork/findAllByTeacher">作业列表</a></li>
+                    <li><a href="/ssh/bigWork/findAllByTeacher">课题列表</a></li>
                     <li><a href="#">上传控制</a></li>
                     <li><a href="#">评价控制</a></li>
                 </ul>
