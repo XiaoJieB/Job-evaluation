@@ -31,18 +31,6 @@ public class BigWorkController {
 	@Autowired
 	StudentService studentService;
 
-	@RequestMapping("/save")
-	@ResponseBody
-	public Map<String,Object> addJobLink(BigWork bigWork) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		bigWorkService.save(bigWork);
-		Student student = studentService.find(bigWork.getStudentId());
-		student.setBigWork(bigWork);
-		result.put("msg", "大作业上传成功！");
-		result.put("code", "0");
-		return result;
-	}
-
 	@RequestMapping("/findAllByTeacher")
 	public String findAllByTeacher(ModelMap map, HttpServletRequest request) {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
@@ -50,7 +38,7 @@ public class BigWorkController {
 		return "teacher/BigWorkList";
 	}
 
-	@RequestMapping("/addBigWork")
+	@RequestMapping("/save")
 	@ResponseBody
 	public Map<String,Object> addBigWork(BigWork bigWork, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();

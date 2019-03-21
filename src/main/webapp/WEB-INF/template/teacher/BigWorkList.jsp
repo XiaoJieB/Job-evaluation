@@ -219,7 +219,7 @@
       });
       $(".add").on('click', function () {
         $("#myModalLabel").html("新增作业");
-        url = "/ssh/bigWork/addBigWork";
+        url = "/ssh/bigWork/save";
         $("#myModal").modal('show');
       })
       $(".view").on('click', function () {
