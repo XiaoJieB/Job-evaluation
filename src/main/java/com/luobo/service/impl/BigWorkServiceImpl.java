@@ -39,10 +39,6 @@ public class BigWorkServiceImpl implements BigWorkService {
 		return bigWorkRepository.load(workId);
 	}
 
-	public void saveOrUpdate(BigWork bigWork) {
-		bigWorkRepository.saveOrUpdate(bigWork);
-	}
-
 	@Override
 	public void update(BigWork bigWork) {
 		bigWorkRepository.update(bigWork);

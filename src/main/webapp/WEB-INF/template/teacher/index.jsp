@@ -54,7 +54,6 @@
             <li><a href="#"><i class="fa fa-cog"></i>作业管理</a>
                 <ul class="submenu">
                     <li><a href="/ssh/bigWork/findAllByTeacher">作业列表</a></li>
-                    <li><a href="#">删除作业</a></li>
                     <li><a href="#">上传控制</a></li>
                     <li><a href="#">评价控制</a></li>
                 </ul>
