@@ -1,6 +1,9 @@
 package com.luobo.controller;
 
+import com.luobo.entity.Student;
 import com.luobo.service.StudentService;
+import com.luobo.util.Constants;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,10 +28,9 @@ public class StudentController {
 		return "student/index";
 	}
 
-	@RequestMapping("/addBigWork")
-	public String addJobLink(ModelMap map,Long studentId) {
-		map.addAttribute("studentId",studentId);
-		return "student/addBigWork";
+	@RequestMapping("/updateBigWork")
+	public String addJobLink() {
+		return "student/updateBigWork";
 	}
 
 

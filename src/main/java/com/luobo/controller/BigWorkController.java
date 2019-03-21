@@ -91,4 +91,14 @@ public class BigWorkController {
 		map.addAttribute("workList",bigWorkService.findAll());
 		return "student/chooseWork";
 	}
+
+	@RequestMapping("/updateWorkBindStudent")
+	@ResponseBody
+	public Map<String,Object> updateWorkBindStudent(Long stuId,Long workId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		bigWorkService.updateWorkBindStudent(stuId,workId);
+		result.put("msg", "大作业更新成功！");
+		result.put("code", "0");
+		return result;
+	}
 }

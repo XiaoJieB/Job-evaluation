@@ -17,4 +17,6 @@ public interface BigWorkService {
 	void update(BigWork bigWork);
 
 	List<BigWork> findAll();
+
+	void updateWorkBindStudent(Long stuId, Long workId);
 }

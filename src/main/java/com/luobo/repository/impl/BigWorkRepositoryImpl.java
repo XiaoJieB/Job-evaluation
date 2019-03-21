@@ -79,4 +79,14 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 		query.setParameter("id",bigWork.getId());
 		query.executeUpdate();
 	}
+
+	@Override
+	public void updateWorkBindStudent(Long studentId, Long id) {
+		String hql = "update BigWork b set b.studentId = :studentId where b.id = :id";
+		getCurrentSession()
+			.createQuery(hql)
+			.setParameter("id",id)
+			.setParameter("studentId",studentId)
+			.executeUpdate();
+	}
 }

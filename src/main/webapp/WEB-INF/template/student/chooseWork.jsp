@@ -16,11 +16,11 @@
 <div class="container">
     <h1>大作业评价系统-学生操作页面</h1>
     <hr/>
-    <h2>当前登陆用户：${work.name}</h2>
+    <h2>当前登陆用户：${student.name}</h2>
     <hr/>
     <h3>
         <a href="#" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
-        <a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
+        <a href="/ssh/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/work/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -41,8 +41,10 @@
                 <td>${work.name}</td>
                 <td>${work.teacher.name}</td>
                 <td>
-                    <a href="/admin/works/show/${work.id}" type="button" class="btn btn-sm btn-success">选题</a>
-                    <a href="/admin/works/show/${work.id}" type="button" class="btn btn-sm btn-success">详情</a>
+                    <a href="#" type="button" class="btn btn-sm btn-success view"
+                       name="${work.id}">详情</a>
+                    <a href="#" type="button" class="btn btn-sm btn-warning update"
+                       name="${work.id}">选题</a>
 
                 </td>
             </tr>
@@ -53,8 +55,41 @@
   registerEvent();
 
   function registerEvent() {
-    $("#addBigWork").click(function () {
-      window.location.href = "/ssh/work/addBigWork?workId=" + ${work.id};
+    $(".view").on('click', function () {
+      var id = this.name;
+      $.ajax({
+        type: "POST",
+        data: {"workId": this.name},
+        async: false,
+        url: "/ssh/bigWork/view",
+        success: function (data) {
+          if (data.code == "0") {
+            $("#name").val(data.name);
+            $("#remark").val(data.remark);
+            $("#myModalLabel").html("查看课题");
+            $("button[type]:submit").attr("disabled","disabled");
+            $("#myModal").modal('show');
+          } else {
+            swal("警告", data.msg, "error");
+          }
+        }
+      });
+    })
+    $(".update").on('click', function () {
+      var id = this.name;
+      $.ajax({
+        type: "POST",
+        data: {"workId": this.name,"stuId":${student.id}},
+        async: false,
+        url: "/ssh/bigWork/updateWorkBindStudent",
+        success: function (data) {
+          if (data.code == "0") {
+             window.location.href = "/ssh/student/list";
+          } else {
+            swal("警告", data.msg, "error");
+          }
+        }
+      });
     })
   }
 </script>

@@ -48,4 +48,9 @@ public class BigWorkServiceImpl implements BigWorkService {
 	public List<BigWork> findAll() {
 		return bigWorkRepository.findAll();
 	}
+
+	@Override
+	public void updateWorkBindStudent (Long stuId, Long workId) {
+		bigWorkRepository.updateWorkBindStudent(stuId,workId);
+	}
 }

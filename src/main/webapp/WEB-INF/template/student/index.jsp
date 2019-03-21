@@ -20,7 +20,7 @@
     <hr/>
     <h3>
         <a href="/ssh/bigWork/chooseWork" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
-        <a href="#" id="addBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
+        <a href="/ssh/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -57,9 +57,7 @@
     registerEvent();
 
     function registerEvent() {
-      $("#addBigWork").click(function () {
-        window.location.href = "/ssh/student/addBigWork?studentId=" + ${student.id};
-      })
+
     }
 </script>
 </body>

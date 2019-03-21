@@ -23,7 +23,7 @@
     <hr/>
     <h2>当前登陆用户：${student.name}</h2>
     <hr/>
-    <h3><a href="#" type="button" class="btn btn-primary btn-sm">上交作业</a>
+    <a href="/ssh/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -62,10 +62,9 @@
       submitHandler: function () {
           $.ajax({
             type: "POST",
-            data:{"gitSrc":$("#gitSrc").val(),"projectSrc":$("#projectSrc").val(),
-            "studentId":${studentId},"imgSrc":$("#imgSrc").val()},
+            data:{"gitSrc":$("#gitSrc").val(),"projectSrc":$("#projectSrc").val(),"imgSrc":$("#imgSrc").val()},
             async: false,
-            url: "/ssh/bigWork/save",
+            url: "/ssh/bigWork/update",
             success:function (data) {
               if(data.code == "0") {
                 window.location.href = "/ssh/student/list";
