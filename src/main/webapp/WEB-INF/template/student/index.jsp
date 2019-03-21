@@ -45,7 +45,9 @@
                     <td>${student.number}</td>
                     <td>${student.name}</td>
                     <td>
-                        <a href="#" type="button" class="btn btn-sm btn-success">浏览</a>
+                        <c:if test="${student.bigWork.projectSrc != null}">
+                            <a href="${student.bigWork.projectSrc}" type="button" class="btn btn-sm btn-success"  target="_blank">浏览</a>
+                        </c:if>
                     </td>
                     <td></td>
                     <td>

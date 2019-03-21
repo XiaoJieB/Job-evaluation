@@ -70,16 +70,27 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 
 	@Override
 	public void update(BigWork bigWork) {
-		String hql = "update BigWork b set b.id=:id,b.studentId=:studentId"
-			+ ",b.name=:name, b.remark=:remark, b.projectSrc=:projectSrc"
-			+ ", b.gitSrc=:gitSrc where b.id=:id";
+		String teacherUpdate = "";
+		String studentUpdate = "";
+
+		if (bigWork.getName() != null) {
+			teacherUpdate = ",b.name=:name, b.remark=:remark,b.studentId = :studentId";
+		} else {
+			studentUpdate = ",b.projectSrc=:projectSrc, b.gitSrc=:gitSrc,b.imgSrc = :imgSrc";
+		}
+		String hql = "update BigWork b set b.id=:id" + teacherUpdate + studentUpdate
+			+ " where b.id=:id";
 		Query query = getCurrentSession().createQuery(hql);
-		query.setParameter("name",bigWork.getName());
-		query.setParameter("remark",bigWork.getRemark());
-		query.setParameter("projectSrc",bigWork.getProjectSrc());
-		query.setParameter("gitSrc",bigWork.getGitSrc());
 		query.setParameter("id",bigWork.getId());
-		query.setParameter("studentId",bigWork.getStudentId());
+		if (bigWork.getName() != null) {
+			query.setParameter("name",bigWork.getName());
+			query.setParameter("remark",bigWork.getRemark());
+			query.setParameter("studentId",bigWork.getStudentId());
+		} else {
+			query.setParameter("projectSrc",bigWork.getProjectSrc());
+			query.setParameter("gitSrc",bigWork.getGitSrc());
+			query.setParameter("imgSrc",bigWork.getImgSrc());
+		}
 		query.executeUpdate();
 	}
 

@@ -39,7 +39,7 @@
         <div class="form-group">
             <label>Git链接:</label>
             <input type="text" class="form-control" id="gitSrc" name="gitSrc" placeholder="Enter Nickname:"/>
-            <input type="text" id="studentId" name="studentId" value="${student.id}" style="display: none"/>
+            <input type="text" id="id" name="id" value="${student.bigWork.id}" style="display: none"/>
         </div>
         <div class="form-group">
             <label>项目链接:</label>
@@ -67,7 +67,7 @@
       submitHandler: function () {
           $.ajax({
             type: "POST",
-            data:{"gitSrc":$("#gitSrc").val(),"projectSrc":$("#projectSrc").val(),"imgSrc":$("#imgSrc").val()},
+            data:{"gitSrc":$("#gitSrc").val(),"projectSrc":$("#projectSrc").val(),"imgSrc":$("#imgSrc").val(),id:$("#id").val()},
             async: false,
             url: "/ssh/bigWork/update",
             success:function (data) {
