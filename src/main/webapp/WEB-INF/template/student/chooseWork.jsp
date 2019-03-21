@@ -43,9 +43,10 @@
                 <td>
                     <a href="#" type="button" class="btn btn-sm btn-success view"
                        name="${work.id}">详情</a>
-                    <a href="#" type="button" class="btn btn-sm btn-warning update"
-                       name="${work.id}">选题</a>
-
+                    <c:if test="${work.studentId == null && student.bigWork == null}">
+                        <a href="#" type="button" class="btn btn-sm btn-warning update"
+                           name="${work.id}">选题</a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

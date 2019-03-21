@@ -32,9 +32,14 @@
 
     <form action="#" method="post" id="addWorkForm">
         <div class="form-group">
+            <label>课题名称:</label>
+            <input type="text" class="form-control" id="name"
+                   name="name" value="${student.bigWork.name}" readonly/>
+        </div>
+        <div class="form-group">
             <label>Git链接:</label>
             <input type="text" class="form-control" id="gitSrc" name="gitSrc" placeholder="Enter Nickname:"/>
-            <input type="text" id="studentId" name="studentId" value="${studentId}" style="display: none"/>
+            <input type="text" id="studentId" name="studentId" value="${student.id}" style="display: none"/>
         </div>
         <div class="form-group">
             <label>项目链接:</label>

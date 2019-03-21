@@ -115,10 +115,12 @@
                     <td>
                         <a href="#" type="button" class="btn btn-sm btn-success view"
                            name="${work.id}">详情</a>
-                        <a href="#" type="button" class="btn btn-sm btn-warning update"
-                           name="${work.id}">修改</a>
-                        <a href="#" type="button" class="btn btn-sm btn-danger delete"
-                           name="${work.id}">删除</a>
+                        <c:if test="${work.studentId == null}">
+                            <a href="#" type="button" class="btn btn-sm btn-warning update"
+                               name="${work.id}">修改</a>
+                            <a href="#" type="button" class="btn btn-sm btn-danger delete"
+                               name="${work.id}">删除</a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>

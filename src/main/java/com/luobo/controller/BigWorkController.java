@@ -1,6 +1,7 @@
 package com.luobo.controller;
 
 import com.luobo.entity.BigWork;
+import com.luobo.entity.Student;
 import com.luobo.entity.Teacher;
 import com.luobo.service.BigWorkService;
 import com.luobo.service.StudentService;
@@ -94,9 +95,11 @@ public class BigWorkController {
 
 	@RequestMapping("/updateWorkBindStudent")
 	@ResponseBody
-	public Map<String,Object> updateWorkBindStudent(Long stuId,Long workId) {
+	public Map<String,Object> updateWorkBindStudent(Long workId, HttpServletRequest request) {
+		Student student = (Student) request.getSession().getAttribute(Constants.STUDENT_CONTEXT);
+		student.setBigWork(bigWorkService.get(workId));
 		Map<String, Object> result = new HashMap<String, Object>();
-		bigWorkService.updateWorkBindStudent(stuId,workId);
+		bigWorkService.updateWorkBindStudent(student.getId(),workId);
 		result.put("msg", "大作业更新成功！");
 		result.put("code", "0");
 		return result;
