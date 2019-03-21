@@ -71,4 +71,31 @@ public class BigWorkController {
 		result.put("code", "0");
 		return result;
 	}
+
+	@RequestMapping("/view")
+	@ResponseBody
+	public Map<String,Object> view(Long workId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		BigWork bigWork = bigWorkService.get(workId);
+		if (bigWork != null) {
+			result.put("id", bigWork.getId());
+			result.put("name", bigWork.getName());
+			result.put("remark", bigWork.getRemark());
+			result.put("code", "0");
+		} else {
+			result.put("msg", "作业不存在");
+			result.put("code", "201");
+		}
+		return result;
+	}
+
+	@RequestMapping("/update")
+	@ResponseBody
+	public Map<String,Object> update(BigWork bigWork) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		bigWorkService.update(bigWork);
+		result.put("msg", "大作业更新成功！");
+		result.put("code", "0");
+		return result;
+	}
 }

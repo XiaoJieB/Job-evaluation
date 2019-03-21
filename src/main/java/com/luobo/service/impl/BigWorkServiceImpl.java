@@ -30,4 +30,21 @@ public class BigWorkServiceImpl implements BigWorkService {
 	public void delete(Long workId) {
 		bigWorkRepository.delete(workId);
 	}
+
+	public BigWork get(Long workId) {
+		return bigWorkRepository.get(workId);
+	}
+
+	public BigWork load(Long workId) {
+		return bigWorkRepository.load(workId);
+	}
+
+	public void saveOrUpdate(BigWork bigWork) {
+		bigWorkRepository.saveOrUpdate(bigWork);
+	}
+
+	@Override
+	public void update(BigWork bigWork) {
+		bigWorkRepository.update(bigWork);
+	}
 }

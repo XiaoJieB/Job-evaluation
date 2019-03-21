@@ -64,4 +64,16 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 		List<BigWork> bigWorks = query.list();
 		return bigWorks;
 	}
+
+	@Override
+	public void update(BigWork bigWork) {
+		String hql = "update BigWork b set b.id=:id,b.name=:name, b.remark=:remark, b.projectSrc=:projectSrc, b.gitSrc=:gitSrc where b.id=:id";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("name",bigWork.getName());
+		query.setParameter("remark",bigWork.getRemark());
+		query.setParameter("projectSrc",bigWork.getProjectSrc());
+		query.setParameter("gitSrc",bigWork.getGitSrc());
+		query.setParameter("id",bigWork.getId());
+		query.executeUpdate();
+	}
 }
