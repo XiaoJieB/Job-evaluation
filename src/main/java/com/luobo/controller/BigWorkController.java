@@ -98,6 +98,7 @@ public class BigWorkController {
 	public Map<String,Object> updateWorkBindStudent(Long workId, HttpServletRequest request) {
 		Student student = (Student) request.getSession().getAttribute(Constants.STUDENT_CONTEXT);
 		student.setBigWork(bigWorkService.get(workId));
+		studentService.update(student);
 		Map<String, Object> result = new HashMap<String, Object>();
 		bigWorkService.updateWorkBindStudent(student.getId(),workId);
 		result.put("msg", "大作业更新成功！");

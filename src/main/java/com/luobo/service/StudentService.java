@@ -7,4 +7,6 @@ public interface StudentService {
 	public Student find(Long id);
 	public List<Student> findAll();
 	public Student findByNo(String no);
+
+	void update(Student student);
 }

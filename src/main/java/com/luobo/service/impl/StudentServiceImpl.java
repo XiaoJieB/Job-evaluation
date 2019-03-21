@@ -33,4 +33,9 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> findAll(){
 		return studentRepository.findAll();
 	}
+
+	@Override
+	public void update(Student student) {
+		studentRepository.update(student);
+	}
 }

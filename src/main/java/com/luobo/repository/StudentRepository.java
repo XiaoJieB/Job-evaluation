@@ -5,4 +5,5 @@ import com.luobo.entity.Student;
 public interface StudentRepository extends BaseRepository<Student,Long>  {
 	public Student findByNo(String no);
 
+	void update(Student student);
 }

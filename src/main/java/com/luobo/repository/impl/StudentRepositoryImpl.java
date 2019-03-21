@@ -71,4 +71,13 @@ public class StudentRepositoryImpl implements StudentRepository {
 		}
 		return null;
 	}
+
+	@Override
+	public void update(Student student) {
+		String hql = "update Student s set s.bigWork.id=:bigWorkId where id = :id";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("bigWorkId",student.getBigWork().getId());
+		query.setParameter("id",student.getId());
+		query.executeUpdate();
+	}
 }
