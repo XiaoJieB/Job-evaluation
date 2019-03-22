@@ -40,6 +40,8 @@ public class BigWork {
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
+	private Boolean open;
+
 	public enum Type{
 		project,//工程设计
 		paper,//学术论文
@@ -47,6 +49,14 @@ public class BigWork {
 	}
 
 	private String remark;
+
+	public Boolean getOpen() {
+		return open;
+	}
+
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
 
 	public String getRemark() {
 		return remark;

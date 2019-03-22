@@ -72,13 +72,15 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 	public void update(BigWork bigWork) {
 		String teacherUpdate = "";
 		String studentUpdate = "";
-
+		String openUpdate = "";
 		if (bigWork.getName() != null) {
 			teacherUpdate = ",b.name=:name, b.remark=:remark,b.studentId = :studentId";
-		} else {
+		} else if (bigWork.getProjectSrc() != null) {
 			studentUpdate = ",b.projectSrc=:projectSrc, b.gitSrc=:gitSrc,b.imgSrc = :imgSrc";
+		} else {
+			openUpdate = ",b.open = :open";
 		}
-		String hql = "update BigWork b set b.id=:id" + teacherUpdate + studentUpdate
+		String hql = "update BigWork b set b.id=:id" + teacherUpdate + studentUpdate + openUpdate
 			+ " where b.id=:id";
 		Query query = getCurrentSession().createQuery(hql);
 		query.setParameter("id",bigWork.getId());
@@ -86,10 +88,12 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 			query.setParameter("name",bigWork.getName());
 			query.setParameter("remark",bigWork.getRemark());
 			query.setParameter("studentId",bigWork.getStudentId());
-		} else {
+		} else if (bigWork.getProjectSrc() != null){
 			query.setParameter("projectSrc",bigWork.getProjectSrc());
 			query.setParameter("gitSrc",bigWork.getGitSrc());
 			query.setParameter("imgSrc",bigWork.getImgSrc());
+		} else {
+			query.setParameter("open",bigWork.getOpen());
 		}
 		query.executeUpdate();
 	}

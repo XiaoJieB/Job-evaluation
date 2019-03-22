@@ -20,7 +20,9 @@
     <hr/>
     <h3>
         <a href="#" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
-        <a href="/ssh/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
+        <c:if test="${student.bigWork != null}">
+            <a href="/ssh/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
+        </c:if>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/work/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
@@ -92,6 +94,10 @@
         }
       });
     })
+    if(${!student.bigWork.open}) {
+      $("#upload").attr("disabled",true);
+      $("#upload")[0].href="#";
+    }
   }
 </script>
 </body>

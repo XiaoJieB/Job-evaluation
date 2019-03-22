@@ -44,6 +44,7 @@ public class BigWorkController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
 		bigWork.setTeacher(teacher);
+		bigWork.setOpen(false);
 		bigWorkService.save(bigWork);
 		result.put("msg", "大作业新增成功！");
 		result.put("code", "0");
@@ -105,4 +106,12 @@ public class BigWorkController {
 		result.put("code", "0");
 		return result;
 	}
+
+	@RequestMapping("/BigWorkControlList")
+	public String BigWorkControlList(ModelMap map, HttpServletRequest request) {
+		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
+		return "teacher/BigWorkControlList";
+	}
+
 }
