@@ -53,9 +53,19 @@
                             <a href="${student.bigWork.projectSrc}" type="button" class="btn btn-sm btn-success"  target="_blank">浏览</a>
                         </c:if>
                     </td>
-                    <td></td>
+                    <td>${student.bigWork.score.selfScore}</td>
                     <td>
-                        <a href="/admin/students/show/${student.id}" type="button" class="btn btn-sm btn-warning">评分</a>
+                        <c:choose>
+                            <c:when test="${student.bigWork != null}">
+                                <a href="#" type="button" class="btn btn-sm btn-warning update"
+                                   name="${student.bigWork.id}">评分</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#" type="button" class="btn btn-sm btn-warning update"
+                                   name="${student.bigWork.id}" disabled="true">评分</a>
+                            </c:otherwise>
+                        </c:choose>
+
                     </td>
                 </tr>
             </c:forEach>
@@ -179,7 +189,9 @@
       $("#goBack").click(function () {
         $("#myModal").modal('hide');
       })
-
+        $(".update").click(function () {
+          $("#myModal").modal('show');
+        })
     }
 </script>
 </body>
