@@ -22,6 +22,7 @@
         <a href="#" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
         <c:if test="${student.bigWork != null}">
             <a href="/ssh/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
+            <a href="/ssh/work/list" type="button" id="assessByself" class="btn btn-primary btn-sm">自评</a>
         </c:if>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/work/list" type="button" class="btn btn-primary btn-sm">互评</a>
@@ -97,6 +98,10 @@
     if(${!student.bigWork.open}) {
       $("#upload").attr("disabled",true);
       $("#upload")[0].href="#";
+    }
+    if(${student.bigWork.projectSrc == null}) {
+      $("#assessByself").attr("disabled",true);
+      $("#assessByself")[0].href="#";
     }
   }
 </script>

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,6 +37,9 @@ public class BigWork {
 
 	private Type type;
 
+	@OneToOne
+	private Score score;
+
 	@ManyToOne
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
@@ -49,6 +53,14 @@ public class BigWork {
 	}
 
 	private String remark;
+
+	public Score getScore() {
+		return score;
+	}
+
+	public void setScore(Score score) {
+		this.score = score;
+	}
 
 	public Boolean getOpen() {
 		return open;

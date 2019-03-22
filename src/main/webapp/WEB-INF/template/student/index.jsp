@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/ssh/css/bootstrap.css">
     <script src="/ssh/js/jquery.min.js"></script>
     <script src="/ssh/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/ssh/js/jquery.validate.js"></script>
 </head>
 <body>
 <div class="container">
@@ -22,6 +23,7 @@
         <a href="/ssh/bigWork/chooseWork" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
         <c:if test="${student.bigWork != null}">
             <a href="/ssh/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
+            <a href="#" type="button" id="assessByself" class="btn btn-primary btn-sm">自评</a>
         </c:if>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
         <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
@@ -57,7 +59,104 @@
             </c:forEach>
         </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">评分明细</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="scoreForm">
+                    <div class="form-group">
+                        <label>结构设计:</label>
+                        <input type="text" class="form-control" id="score1" name="score1"
+                               placeholder="Enter Nickname:"/>
+                    </div>
+                    <div class="form-group">
+                        <label>代码编写:</label>
+                        <textarea type="text" class="form-control" id="score2" name="score2"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>界面设计:</label>
+                        <textarea type="text" class="form-control" id="score3" name="score3"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>创新性:</label>
+                        <textarea type="text" class="form-control" id="score4" name="score4"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                        <button id="goBack" type="button" class="btn btn-sm btn-default">返回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+
+    var form = $("#scoreForm");
+  form.validate({
+    submitHandler: function () {
+      var score1 = parseFloat($("#score1").val());
+      var score2 = parseFloat($("#score2").val());
+      var score3 = parseFloat($("#score3").val());
+      var score4 = parseFloat($("#score4").val());
+      var total = score1 + score2 + score3 + score4;
+      var str = score1 + "," + score2 + "," + score3 + "," + score4;
+      $.ajax({
+        type: "POST",
+        data: {"selfScore": total
+          , "selfScoreStr": str,"id":${student.bigWork.id}},
+        async: false,
+        url: "/ssh/score/save",
+        success: function (data) {
+          if (data.code == "0") {
+            window.location.href = "/ssh/student/list";
+          } else {
+            swal("警告", data.msg, "error");
+          }
+        }
+      });
+      return false;
+    },
+    rules: {
+      score1: {
+        required: true,
+      },
+      score2: {
+        required: true,
+      },
+      score3: {
+        required: true,
+      },
+      score4: {
+        required: true,
+      },
+    },
+    messages: {
+      score1: {
+        required: "分数不能为空",
+      },
+      score2: {
+        required: "分数不能为空",
+      },
+      score3: {
+        required: "分数不能为空",
+      },
+      score4: {
+        required: "分数不能为空",
+      },
+    }
+  });
     registerEvent();
 
     function registerEvent() {
@@ -65,6 +164,14 @@
         $("#upload").attr("disabled",true);
         $("#upload")[0].href="#";
       }
+      if(${student.bigWork.projectSrc == null}) {
+        $("#assessByself").attr("disabled",true);
+        $("#assessByself")[0].href="#";
+      }
+
+      $("#assessByself").click(function () {
+        $("#myModal").modal('show');
+      })
     }
 </script>
 </body>

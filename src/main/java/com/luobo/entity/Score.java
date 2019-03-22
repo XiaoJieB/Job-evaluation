@@ -22,22 +22,77 @@ public class Score {
 	@Column(name = "created")
 	private Long created = System.currentTimeMillis();
 
-
 	private Double selfScore;
+
+	private String selfScoreStr;//tag:xx,xx,xx,xx
 
 	private Double selfRatio;
 
 	private Double mutualScore;
 
+	private String mutualScoreStr;
+
 	private Double mutualRatio;
 
 	private Double teacherScore;
+
+	private String teacherScoreStr;
 
 	private Double teacherRatio;
 
 	private Double totalScore;
 
+	private String totalScoreStr;
+
 	private String remark;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getCreated() {
+		return created;
+	}
+
+	public void setCreated(Long created) {
+		this.created = created;
+	}
+
+	public String getSelfScoreStr() {
+		return selfScoreStr;
+	}
+
+	public void setSelfScoreStr(String selfScoreStr) {
+		this.selfScoreStr = selfScoreStr;
+	}
+
+	public String getMutualScoreStr() {
+		return mutualScoreStr;
+	}
+
+	public void setMutualScoreStr(String mutualScoreStr) {
+		this.mutualScoreStr = mutualScoreStr;
+	}
+
+	public String getTeacherScoreStr() {
+		return teacherScoreStr;
+	}
+
+	public void setTeacherScoreStr(String teacherScoreStr) {
+		this.teacherScoreStr = teacherScoreStr;
+	}
+
+	public String getTotalScoreStr() {
+		return totalScoreStr;
+	}
+
+	public void setTotalScoreStr(String totalScoreStr) {
+		this.totalScoreStr = totalScoreStr;
+	}
 
 	public Double CalcTotalScore(Double selfScore, Double selfRatio, Double mutualScore, Double mutualRatio,
 		Double teacherScore, Double teacherRatio) {
