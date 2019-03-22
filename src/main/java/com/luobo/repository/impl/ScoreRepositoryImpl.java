@@ -2,6 +2,7 @@ package com.luobo.repository.impl;
 
 import com.luobo.repository.ScoreRepository;
 import com.luobo.entity.Score;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,17 @@ public class ScoreRepositoryImpl implements ScoreRepository {
 
 	public void flush() {
 		getCurrentSession().flush();
+	}
+
+	@Override
+	public Score findByWorkId(Long workId) {
+		String hql = "from Score s where s.bigWorkId = :workId";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("workId",workId);
+		List<Score> scores = query.list();
+		if (scores != null && scores.size() != 0) {
+			return scores.get(0);
+		}
+		return null;
 	}
 }

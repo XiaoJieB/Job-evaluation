@@ -12,6 +12,8 @@
     <script src="/ssh/js/jquery.min.js"></script>
     <script src="/ssh/js/bootstrap.js"></script>
     <script type="text/javascript" src="/ssh/js/jquery.validate.js"></script>
+    <script src="/ssh/js/sweet-alert.js"></script>
+    <link rel="stylesheet" type="text/css" href="/ssh/css/sweet-alert.css">
 </head>
 <body>
 <div class="container">
@@ -104,62 +106,63 @@
 <script>
 
     var form = $("#scoreForm");
-  form.validate({
-    submitHandler: function () {
-      var score1 = parseFloat($("#score1").val());
-      var score2 = parseFloat($("#score2").val());
-      var score3 = parseFloat($("#score3").val());
-      var score4 = parseFloat($("#score4").val());
-      var total = score1 + score2 + score3 + score4;
-      var str = score1 + "," + score2 + "," + score3 + "," + score4;
-      $.ajax({
-        type: "POST",
-        data: {"selfScore": total
-          , "selfScoreStr": str,"id":${student.bigWork.id}},
-        async: false,
-        url: "/ssh/score/save",
-        success: function (data) {
-          if (data.code == "0") {
-            window.location.href = "/ssh/student/list";
-          } else {
-            swal("警告", data.msg, "error");
-          }
+    registerEvent();
+    initData();
+
+    function initData() {
+      form.validate({
+        submitHandler: function () {
+          var score1 = parseFloat($("#score1").val());
+          var score2 = parseFloat($("#score2").val());
+          var score3 = parseFloat($("#score3").val());
+          var score4 = parseFloat($("#score4").val());
+          var total = score1 + score2 + score3 + score4;
+          var str = score1 + "," + score2 + "," + score3 + "," + score4;
+          $.ajax({
+            type: "POST",
+            data: {"selfScore": total
+              , "selfScoreStr": str,"bigWorkId":${student.bigWork.id}},
+            async: false,
+            url: "/ssh/score/save",
+            success: function (data) {
+              if (data.code == "0") {
+                window.location.href = "/ssh/student/list";
+              } else {
+                swal("警告", data.msg, "error");
+              }
+            }
+          });
+          return false;
+        },
+        rules: {
+          score1: {
+            required: true,
+          },
+          score2: {
+            required: true,
+          },
+          score3: {
+            required: true,
+          },
+          score4: {
+            required: true,
+          },
+        },
+        messages: {
+          score1: {
+            required: "分数不能为空",
+          },
+          score2: {
+            required: "分数不能为空",
+          },
+          score3: {
+            required: "分数不能为空",
+          },
+          score4: {
+            required: "分数不能为空",
+          },
         }
       });
-      return false;
-    },
-    rules: {
-      score1: {
-        required: true,
-      },
-      score2: {
-        required: true,
-      },
-      score3: {
-        required: true,
-      },
-      score4: {
-        required: true,
-      },
-    },
-    messages: {
-      score1: {
-        required: "分数不能为空",
-      },
-      score2: {
-        required: "分数不能为空",
-      },
-      score3: {
-        required: "分数不能为空",
-      },
-      score4: {
-        required: "分数不能为空",
-      },
-    }
-  });
-    registerEvent();
-
-    function registerEvent() {
       if(${!student.bigWork.open}) {
         $("#upload").attr("disabled",true);
         $("#upload")[0].href="#";
@@ -168,10 +171,15 @@
         $("#assessByself").attr("disabled",true);
         $("#assessByself")[0].href="#";
       }
-
+    }
+    function registerEvent() {
       $("#assessByself").click(function () {
         $("#myModal").modal('show');
       })
+      $("#goBack").click(function () {
+        $("#myModal").modal('hide');
+      })
+
     }
 </script>
 </body>

@@ -46,6 +46,16 @@ public class Score {
 
 	private String remark;
 
+	private Long bigWorkId;
+
+	public Long getBigWorkId() {
+		return bigWorkId;
+	}
+
+	public void setBigWorkId(Long bigWorkId) {
+		this.bigWorkId = bigWorkId;
+	}
+
 	public Long getId() {
 		return id;
 	}

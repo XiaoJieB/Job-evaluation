@@ -22,4 +22,9 @@ public class ScoreServiceImpl implements ScoreService {
 	public Long save(Score score) {
 		return scoreRepository.save(score);
 	}
+
+	@Override
+	public Score findByWorkId(Long workId) {
+		return scoreRepository.findByWorkId(workId);
+	}
 }
