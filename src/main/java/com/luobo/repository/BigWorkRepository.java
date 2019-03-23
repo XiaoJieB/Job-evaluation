@@ -7,7 +7,5 @@ public interface BigWorkRepository extends BaseRepository<BigWork,Long> {
 
 	List<BigWork> findAllByTeacher(Long teacherId);
 
-	void update (BigWork bigWork);
-
-	void updateWorkBindStudent(Long studentId, Long id);
+	void update (BigWork bigWork) throws Exception;
 }

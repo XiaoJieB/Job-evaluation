@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>大作业评价系统</title>
 
-    <link rel="stylesheet" href="/ssh/css/bootstrap.css">
-    <link href="/ssh/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css"/>
-    <link href="/ssh/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link href="/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
-    <script src="/ssh/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/ssh/js/jquery.validate.js"></script>
-    <script src="/ssh/js/bootstrap.js"></script>
-    <script src="/ssh/js/sweet-alert.js"></script>
-    <link rel="stylesheet" type="text/css" href="/ssh/css/sweet-alert.css">
-    <script src="/ssh/js/jquery-accordion-menu.js" type="text/javascript"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/sweet-alert.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/sweet-alert.css">
+    <script src="/js/jquery-accordion-menu.js" type="text/javascript"></script>
 
     <style type="text/css">
         * {
@@ -68,8 +68,8 @@
                 </li>
                 <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                     <ul class="submenu">
-                        <li><a href="/ssh/bigWork/findAllByTeacher">课题列表</a></li>
-                        <li><a href="/ssh/bigWork/BigWorkControlList">上传控制</a></li>
+                        <li><a href="/bigWork/findAllByTeacher">课题列表</a></li>
+                        <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
                         <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
@@ -89,7 +89,7 @@
                     </ul>
                 </li>
 
-                <li><a href="/ssh/logout"><i class="fa fa-file-image-o"></i>退出</a>
+                <li><a href="/logout"><i class="fa fa-file-image-o"></i>退出</a>
                 </li>
             </ul>
             <div class="jquery-accordion-menu-footer">
@@ -180,7 +180,7 @@
           url: url,
           success: function (data) {
             if (data.code == "0") {
-              window.location.href = "/ssh/bigWork/findAllByTeacher";
+              window.location.href = "/bigWork/findAllByTeacher";
             } else {
               swal("警告", data.msg, "error");
             }
@@ -221,7 +221,7 @@
       });
       $(".add").on('click', function () {
         $("#myModalLabel").html("新增课题");
-        url = "/ssh/bigWork/save";
+        url = "/bigWork/save";
         form[0].reset();
         $("#myModal").modal('show');
       })
@@ -231,7 +231,7 @@
           type: "POST",
           data: {"workId": this.name},
           async: false,
-          url: "/ssh/bigWork/view",
+          url: "/bigWork/view",
           success: function (data) {
             if (data.code == "0") {
               $("#name").val(data.name);
@@ -251,7 +251,7 @@
           type: "POST",
           data: {"workId": this.name},
           async: false,
-          url: "/ssh/bigWork/view",
+          url: "/bigWork/view",
           success: function (data) {
             if (data.code == "0") {
               $("#id").val(data.id);
@@ -259,7 +259,7 @@
               $("#remark").val(data.remark);
               $("#myModalLabel").html("修改课题");
               $("button[type]:submit").removeAttr("disabled");
-              url = "/ssh/bigWork/update";
+              url = "/bigWork/update";
               $("#myModal").modal('show');
             } else {
               swal("警告", data.msg, "error");
@@ -272,10 +272,10 @@
           type: "POST",
           data: {"workId": this.name},
           async: false,
-          url: "/ssh/bigWork/delete",
+          url: "/bigWork/delete",
           success: function (data) {
             if (data.code == "0") {
-              window.location.href = "/ssh/bigWork/findAllByTeacher";
+              window.location.href = "/bigWork/findAllByTeacher";
             } else {
               swal("警告", data.msg, "error");
             }

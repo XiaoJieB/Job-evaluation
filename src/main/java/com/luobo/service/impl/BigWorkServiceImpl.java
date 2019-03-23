@@ -40,17 +40,12 @@ public class BigWorkServiceImpl implements BigWorkService {
 	}
 
 	@Override
-	public void update(BigWork bigWork) {
+	public void update(BigWork bigWork) throws Exception {
 		bigWorkRepository.update(bigWork);
 	}
 
 	@Override
 	public List<BigWork> findAll() {
 		return bigWorkRepository.findAll();
-	}
-
-	@Override
-	public void updateWorkBindStudent (Long stuId, Long workId) {
-		bigWorkRepository.updateWorkBindStudent(stuId,workId);
 	}
 }

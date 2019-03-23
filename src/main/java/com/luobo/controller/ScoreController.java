@@ -29,7 +29,8 @@ public class ScoreController {
 
 	@RequestMapping("/save")
 	@ResponseBody
-	public Map<String,Object> addScore(Score score, HttpServletRequest request) {
+	public Map<String,Object> addScore(Score score)
+		throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		BigWork bigWork = bigWorkService.get(score.getBigWorkId());
 		if (bigWork.getScore() != null) {

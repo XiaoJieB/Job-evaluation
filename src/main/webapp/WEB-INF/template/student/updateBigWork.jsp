@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>大作业评价系统</title>
 
-    <script src="/ssh/js/sweet-alert.js"></script>
-    <link rel="stylesheet" type="text/css" href="/ssh/css/sweet-alert.css">
+    <script src="/js/sweet-alert.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/sweet-alert.css">
 
-    <link rel="stylesheet" href="/ssh/css/bootstrap.css">
-    <script src="/ssh/js/jquery.min.js"></script>
-    <script src="/ssh/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/ssh/js/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
 
 </head>
 <body>
@@ -23,11 +23,11 @@
     <hr/>
     <h2>当前登陆用户：${student.name}</h2>
     <hr/>
-    <a href="/ssh/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
+    <a href="/student/updateBigWork" type="button" class="btn btn-primary btn-sm">上交作业</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
-        <a href="/ssh/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
+        <a href="/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
-        <a href="/ssh/logout" type="button" class="btn btn-primary btn-sm">退出</a>
+        <a href="/logout" type="button" class="btn btn-primary btn-sm">退出</a>
     </h3>
 
     <form action="#" method="post" id="addWorkForm">
@@ -58,7 +58,7 @@
 </div>
 <script>
   $('#goBack').click(function(){
-    window.location.href = "/ssh/student/list";
+    window.location.href = "/student/list";
   })
 
   var form = $("#addWorkForm");
@@ -69,10 +69,10 @@
             type: "POST",
             data:{"gitSrc":$("#gitSrc").val(),"projectSrc":$("#projectSrc").val(),"imgSrc":$("#imgSrc").val(),id:$("#id").val()},
             async: false,
-            url: "/ssh/bigWork/update",
+            url: "/bigWork/update",
             success:function (data) {
               if(data.code == "0") {
-                window.location.href = "/ssh/student/list";
+                window.location.href = "/student/list";
               } else {
                 swal("警告",data.msg,"error");
               }

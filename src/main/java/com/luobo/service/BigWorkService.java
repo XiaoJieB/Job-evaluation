@@ -14,9 +14,7 @@ public interface BigWorkService {
 
 	BigWork load(Long workId);
 
-	void update(BigWork bigWork);
+	void update(BigWork bigWork) throws Exception;
 
 	List<BigWork> findAll();
-
-	void updateWorkBindStudent(Long stuId, Long workId);
 }

@@ -2,6 +2,9 @@ package com.luobo.repository.impl;
 
 import com.luobo.entity.BigWork;
 import com.luobo.repository.BigWorkRepository;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,6 +21,8 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	private static Class<BigWork> bigWorkClass = (Class<BigWork>) BigWork.class;
 
 	private Session getCurrentSession() {
 		return this.sessionFactory.openSession();
@@ -69,50 +74,50 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 	}
 
 	@Override
-	public void update(BigWork bigWork) {
-		String teacherUpdate = "";
-		String studentUpdate = "";
-		String openUpdate = "";
-		String scoreUpdate = "";
-		if (bigWork.getScore() != null) {
-			scoreUpdate = ",b.score.id=:scoreId";
+	public void update(BigWork bigWork) throws Exception {
+		String update = "";
+		Field fields[] = bigWorkClass.getDeclaredFields();
+		Field.setAccessible(fields, true);
+		List<Field> names = new ArrayList<Field>();
+		for (Field field : fields) {
+			String name = field.getName();
+			if (field.get(bigWork) != null
+				&& field.getName() != "created"
+				&& field.getName() != "id") {
+				names.add(field);
+				if (field.getType().toString().indexOf("java.") != -1) {
+					update += ",b." + name + "=:" + field.getName();
+				} else {
+					update += ",b." + field.getName() + ".id"+ "=:" + field.getName()+"Id";
+				}
+			}
 		}
-		if (bigWork.getName() != null) {
-			teacherUpdate = ",b.name=:name, b.remark=:remark,b.studentId = :studentId";
-		} else if (bigWork.getProjectSrc() != null) {
-			studentUpdate = ",b.projectSrc=:projectSrc, b.gitSrc=:gitSrc,b.imgSrc = :imgSrc";
-		} else {
-			openUpdate = ",b.open = :open";
-		}
-		String hql = "update BigWork b set b.id=:id" + teacherUpdate + studentUpdate
-			+ openUpdate + scoreUpdate
-			+ " where b.id=:id";
+		String hql = "update BigWork b set b.id=:id" + update + " where b.id=:id";
 		Query query = getCurrentSession().createQuery(hql);
+		Method[] methods = bigWorkClass.getDeclaredMethods();
+		for (Method method : methods) {
+			String methodStr = method.getName();
+			if (methodStr.indexOf("get") != -1) {
+				for (int i = 0; i < names.size(); i++) {
+					Field field = names.get(i);
+					if (methodStr.toLowerCase().indexOf(field.getName().toLowerCase()) != -1) {
+						if (field.getType().toString().indexOf("java.") != -1) {
+							query.setParameter(field.getName(),method.invoke(bigWork));
+						} else {
+							if (methodStr.toLowerCase().indexOf("teacher") != -1) {
+								query.setParameter("teacherId"
+									, bigWork.getTeacher().getId());
+							}
+							if (methodStr.toLowerCase().indexOf("score") != -1) {
+								query.setParameter("scoreId"
+									, bigWork.getScore().getId());
+							}
+						}
+					}
+				}
+			}
+		}
 		query.setParameter("id",bigWork.getId());
-		if (bigWork.getScore() != null) {
-			query.setParameter("scoreId",bigWork.getScore().getId());
-		}
-		if (bigWork.getName() != null) {
-			query.setParameter("name",bigWork.getName());
-			query.setParameter("remark",bigWork.getRemark());
-			query.setParameter("studentId",bigWork.getStudentId());
-		} else if (bigWork.getProjectSrc() != null){
-			query.setParameter("projectSrc",bigWork.getProjectSrc());
-			query.setParameter("gitSrc",bigWork.getGitSrc());
-			query.setParameter("imgSrc",bigWork.getImgSrc());
-		} else {
-			query.setParameter("open",bigWork.getOpen());
-		}
 		query.executeUpdate();
-	}
-
-	@Override
-	public void updateWorkBindStudent(Long studentId, Long id) {
-		String hql = "update BigWork b set b.studentId = :studentId where b.id = :id";
-		getCurrentSession()
-			.createQuery(hql)
-			.setParameter("id",id)
-			.setParameter("studentId",studentId)
-			.executeUpdate();
 	}
 }

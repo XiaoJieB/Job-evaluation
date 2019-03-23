@@ -110,10 +110,10 @@
             type: "POST",
             data: {"number": $("#number").val(), "password": $("#password").val()},
             async: false,
-            url: "/ssh/student/login.action",
+            url: "/student/login.action",
             success: function (data) {
               if (data.code == "0") {
-                window.location.href = "/ssh/student/list";
+                window.location.href = "/student/list";
               } else {
                 swal("警告", data.msg, "error");
               }
@@ -124,10 +124,10 @@
             type: "POST",
             data: {"number": $("#number").val(), "password": $("#password").val()},
             async: false,
-            url: "/ssh/teacher/login.action",
+            url: "/teacher/login.action",
             success: function (data) {
               if (data.code == "0") {
-                window.location.href = "/ssh/teacher/list";
+                window.location.href = "/teacher/list";
               } else {
                 swal("警告", data.msg, "error");
               }

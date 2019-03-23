@@ -80,7 +80,7 @@ public class BigWorkController {
 
 	@RequestMapping("/update")
 	@ResponseBody
-	public Map<String,Object> update(BigWork bigWork) {
+	public Map<String,Object> update(BigWork bigWork) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		bigWorkService.update(bigWork);
 		result.put("msg", "大作业更新成功！");
@@ -96,12 +96,13 @@ public class BigWorkController {
 
 	@RequestMapping("/updateWorkBindStudent")
 	@ResponseBody
-	public Map<String,Object> updateWorkBindStudent(Long workId, HttpServletRequest request) {
+	public Map<String,Object> updateWorkBindStudent(BigWork bigWork, HttpServletRequest request)
+		throws Exception {
 		Student student = (Student) request.getSession().getAttribute(Constants.STUDENT_CONTEXT);
-		student.setBigWork(bigWorkService.get(workId));
+		student.setBigWork(bigWork);
 		studentService.update(student);
 		Map<String, Object> result = new HashMap<String, Object>();
-		bigWorkService.updateWorkBindStudent(student.getId(),workId);
+		bigWorkService.update(bigWork);
 		result.put("msg", "大作业更新成功！");
 		result.put("code", "0");
 		return result;

@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>大作业评价系统</title>
 
-    <link rel="stylesheet" href="/ssh/css/bootstrap.css">
-    <script src="/ssh/js/jquery.min.js"></script>
-    <script src="/ssh/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">
@@ -21,13 +21,13 @@
     <h3>
         <a href="#" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
         <c:if test="${student.bigWork != null}">
-            <a href="/ssh/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
-            <a href="/ssh/work/list" type="button" id="assessByself" class="btn btn-primary btn-sm">自评</a>
+            <a href="/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
+            <a href="/work/list" type="button" id="assessByself" class="btn btn-primary btn-sm">自评</a>
         </c:if>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
-        <a href="/ssh/work/list" type="button" class="btn btn-primary btn-sm">互评</a>
+        <a href="/work/list" type="button" class="btn btn-primary btn-sm">互评</a>
         <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
-        <a href="/ssh/logout" type="button" class="btn btn-primary btn-sm">退出</a>
+        <a href="/logout" type="button" class="btn btn-primary btn-sm">退出</a>
     </h3>
 
     <table class="table table-bordered table-striped">
@@ -65,7 +65,7 @@
         type: "POST",
         data: {"workId": this.name},
         async: false,
-        url: "/ssh/bigWork/view",
+        url: "/bigWork/view",
         success: function (data) {
           if (data.code == "0") {
             $("#name").val(data.name);
@@ -83,12 +83,12 @@
       var id = this.name;
       $.ajax({
         type: "POST",
-        data: {"workId": this.name,"stuId":${student.id}},
+        data: {"id": this.name,"studentId":${student.id}},
         async: false,
-        url: "/ssh/bigWork/updateWorkBindStudent",
+        url: "/bigWork/updateWorkBindStudent",
         success: function (data) {
           if (data.code == "0") {
-             window.location.href = "/ssh/student/list";
+             window.location.href = "/student/list";
           } else {
             swal("警告", data.msg, "error");
           }
