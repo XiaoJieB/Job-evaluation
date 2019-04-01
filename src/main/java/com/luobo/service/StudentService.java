@@ -9,4 +9,6 @@ public interface StudentService {
 	public Student findByNo(String no);
 
 	void update(Student student);
+
+	List<Student> findAllByTeacher(Long teacherId);
 }

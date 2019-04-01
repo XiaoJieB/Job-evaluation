@@ -1,6 +1,7 @@
 package com.luobo.repository.impl;
 
 import com.luobo.entity.Student;
+import com.luobo.repository.BigWorkRepository;
 import com.luobo.repository.StudentRepository;
 import java.util.List;
 import org.hibernate.Query;
@@ -20,6 +21,9 @@ public class StudentRepositoryImpl implements StudentRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private BigWorkRepository bigWorkRepository;
 
 	private Session getCurrentSession() {
 		return this.sessionFactory.openSession();
@@ -64,7 +68,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 	public Student findByNo(String no) {
 		String hql = "from Student s where s.number = :no";
 		Query query = getCurrentSession().createQuery(hql);
-		query.setParameter("no",no);
+		query.setParameter("no", no);
 		List<Student> students = query.list();
 		if (students != null && students.size() != 0) {
 			return (Student) students.get(0);
@@ -76,8 +80,18 @@ public class StudentRepositoryImpl implements StudentRepository {
 	public void update(Student student) {
 		String hql = "update Student s set s.bigWork.id=:bigWorkId where id = :id";
 		Query query = getCurrentSession().createQuery(hql);
-		query.setParameter("bigWorkId",student.getBigWork().getId());
-		query.setParameter("id",student.getId());
+		query.setParameter("bigWorkId", student.getBigWork().getId());
+		query.setParameter("id", student.getId());
 		query.executeUpdate();
+	}
+
+	@Override
+	public List<Student> findAllByTeacher(Long teacherId) {
+		List<Long> studentIds = bigWorkRepository.findAllStuIdsByTeacher(teacherId);
+		String hql = "from Student s where id in (:studentIds)";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameterList("studentIds", studentIds);
+		List<Student> students = query.list();
+		return students;
 	}
 }

@@ -38,4 +38,9 @@ public class StudentServiceImpl implements StudentService {
 	public void update(Student student) {
 		studentRepository.update(student);
 	}
+
+	@Override
+	public List<Student> findAllByTeacher(Long teacherId) {
+		return studentRepository.findAllByTeacher(teacherId);
+	}
 }

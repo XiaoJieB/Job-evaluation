@@ -5,6 +5,7 @@ import com.luobo.repository.BigWorkRepository;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -119,5 +120,15 @@ public class BigWorkRepositoryImpl implements BigWorkRepository {
 		}
 		query.setParameter("id",bigWork.getId());
 		query.executeUpdate();
+	}
+
+	@Override
+	public List<Long> findAllStuIdsByTeacher(Long teacherId) {
+		String hql = "select b.studentId from BigWork b where b.teacher.id = :teacherId";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("teacherId",teacherId);
+		List<Long> stuIds = query.list();
+		stuIds.removeAll(Collections.singleton(null));
+		return stuIds;
 	}
 }

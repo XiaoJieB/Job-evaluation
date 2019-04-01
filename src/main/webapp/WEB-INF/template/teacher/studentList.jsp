@@ -66,9 +66,9 @@
                     <span class="jquery-accordion-menu-label">
                 12 </span>
                 </li>
-                <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
+                <li><a href="#"><i class="fa fa-cog"></i>学生管理</a>
                     <ul class="submenu">
-                        <li><a href="/bigWork/findAllByTeacher">课题列表</a></li>
+                        <li><a href="/bigWork/findAllByTeacher">学生列表</a></li>
                         <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
                         <li><a href="#">评价控制</a></li>
                     </ul>
@@ -84,7 +84,7 @@
 
                 <li><a href="#"><i class="fa fa-cog"></i>评价统计</a>
                     <ul class="submenu">
-                        <li><a href="/teacher/findAllStudent">评价学生</a></li>
+                        <li><a href="#">评价学生</a></li>
                         <li><a href="#">统计</a></li>
                     </ul>
                 </li>
@@ -98,32 +98,21 @@
         </div>
     </div>
     <div class="col-md-8  col-md-offset-1 container">
-        <button type="button" class="btn btn-primary btn-lg add" style="opacity:0">
-            发布课题
-        </button>
         <table class="table table-bordered table-striped">
             <tr>
                 <th style="display: none">ID</th>
-                <th>课题名称</th>
+                <th>学生名称</th>
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${workList}" var="work">
+            <c:forEach items="${studentList}" var="student">
                 <tr>
-                    <td style="display: none">${work.id}</td>
-                    <td>${work.name}</td>
+                    <td style="display: none">${student.id}</td>
+                    <td>${student.name}</td>
                     <td>
-                        <c:choose>
-                            <c:when test="${work.open == false}">
-                                <a href="#" type="button" class="btn btn-sm btn-warning update"
-                                   name="${work.id}" open="true">解禁</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="#" type="button" class="btn btn-sm btn-success update"
-                                   name="${work.id}" open="false">禁止</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
+                        <a href="#" type="button" class="btn btn-sm btn-success update"
+                           name="${student.id}" open="false">评分</a>
+
                 </tr>
             </c:forEach>
         </table>
@@ -140,6 +129,7 @@
     var form = $("#addWorkForm");
     init();
     var url;
+
     function init() {
       registerEvent();
     }
@@ -154,7 +144,7 @@
       $(".update").on('click', function () {
         $.ajax({
           type: "POST",
-          data: {"open": this.attributes.open.nodeValue,"id":this.name},
+          data: {"open": this.attributes.open.nodeValue, "id": this.name},
           async: false,
           url: "/bigWork/update",
           success: function (data) {

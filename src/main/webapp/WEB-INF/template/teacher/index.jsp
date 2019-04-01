@@ -69,7 +69,7 @@
 
             <li><a href="#"><i class="fa fa-cog"></i>评价统计</a>
                 <ul class="submenu">
-                    <li><a href="#">评价学生</a></li>
+                    <li><a href="/teacher/findAllStudent">评价学生</a></li>
                     <li><a href="#">统计</a></li>
                 </ul>
             </li>
