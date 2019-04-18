@@ -1,6 +1,7 @@
 package com.luobo.service.impl;
 
 import com.luobo.entity.BigWork;
+import com.luobo.repository.BaseRepository;
 import com.luobo.repository.BigWorkRepository;
 import com.luobo.service.BigWorkService;
 import java.util.List;
@@ -12,40 +13,18 @@ import org.springframework.stereotype.Service;
  * On 2/2/2017.2:40 PM
  */
 @Service
-public class BigWorkServiceImpl implements BigWorkService {
+public class BigWorkServiceImpl extends BaseServiceImpl<BigWork,Long> implements BigWorkService {
 
 	@Autowired
-	private BigWorkRepository bigWorkRepository;
+	private BigWorkRepository repository;
 
-	public Long save(BigWork bigWork) {
-		return bigWorkRepository.save(bigWork);
+	@Override
+	public BaseRepository<BigWork, Long> getDao() {
+		return repository;
 	}
 
 	@Override
 	public List<BigWork> findAllByTeacher(Long teacherId){
-		return bigWorkRepository.findAllByTeacher(teacherId);
-	}
-
-	@Override
-	public void delete(Long workId) {
-		bigWorkRepository.delete(workId);
-	}
-
-	public BigWork get(Long workId) {
-		return bigWorkRepository.get(workId);
-	}
-
-	public BigWork load(Long workId) {
-		return bigWorkRepository.load(workId);
-	}
-
-	@Override
-	public void update(BigWork bigWork) throws Exception {
-		bigWorkRepository.update(bigWork);
-	}
-
-	@Override
-	public List<BigWork> findAll() {
-		return bigWorkRepository.findAll();
+		return repository.findAllByTeacher(teacherId);
 	}
 }

@@ -1,13 +1,12 @@
 package com.luobo.repository.impl;
 
-import com.luobo.repository.PersonRepository;
 import com.luobo.entity.Person;
+import com.luobo.repository.PersonRepository;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by ws
@@ -41,6 +40,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 
 	public Long save(Person entity) {
 		return (Long)getCurrentSession().save(entity);
+	}
+
+	@Override
+	public void update(Person entity) throws Exception {
+
 	}
 
 	public void saveOrUpdate(Person entity) {

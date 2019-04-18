@@ -64,6 +64,11 @@ public class BaseRepositoryImpl<T, ID extends Serializable> implements BaseRepos
 	}
 
 	@Override
+	public void update(T entity) throws Exception {
+
+	}
+
+	@Override
 	public void delete(ID id) {
 		String hql = "delete from " + getEntityClass().getSimpleName() + " b where b.id = :id";
 		System.out.println(hql);

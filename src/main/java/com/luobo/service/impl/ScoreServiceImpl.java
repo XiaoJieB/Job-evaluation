@@ -1,6 +1,7 @@
 package com.luobo.service.impl;
 
 import com.luobo.entity.Score;
+import com.luobo.repository.BaseRepository;
 import com.luobo.repository.ScoreRepository;
 import com.luobo.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,18 @@ import org.springframework.stereotype.Service;
  * @version: 1.0
  */
 @Service
-public class ScoreServiceImpl implements ScoreService {
+public class ScoreServiceImpl extends BaseServiceImpl<Score,Long> implements ScoreService {
 
 	@Autowired
-	private ScoreRepository scoreRepository;
+	private ScoreRepository repository;
 
 	@Override
-	public Long save(Score score) {
-		return scoreRepository.save(score);
+	public BaseRepository<Score, Long> getDao() {
+		return repository;
 	}
 
 	@Override
 	public Score findByWorkId(Long workId) {
-		return scoreRepository.findByWorkId(workId);
+		return repository.findByWorkId(workId);
 	}
 }

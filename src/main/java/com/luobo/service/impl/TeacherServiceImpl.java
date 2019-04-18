@@ -1,12 +1,11 @@
 package com.luobo.service.impl;
 
 import com.luobo.entity.Teacher;
+import com.luobo.repository.BaseRepository;
 import com.luobo.repository.TeacherRepository;
 import com.luobo.service.TeacherService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * . Description: Date: 2019/3/11 17:29
@@ -15,23 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
  * @version: 1.0
  */
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long> implements TeacherService {
 
 	@Autowired
-	private TeacherRepository teacherRepository;
+	private TeacherRepository repository;
 
-	@Transactional(readOnly = true)
 	@Override
-	public Teacher find(Long id) {
-		return teacherRepository.get(id);
+	public BaseRepository<Teacher, Long> getDao() {
+		return repository;
 	}
 
 	@Override
 	public Teacher findByNo(String no){
-		return teacherRepository.findByNo(no);
-	}
-
-	public List<Teacher> findAll() {
-		return teacherRepository.findAll();
+		return repository.findByNo(no);
 	}
 }
