@@ -1,5 +1,6 @@
 package com.luobo.repository.impl;
 
+import com.luobo.entity.Student;
 import com.luobo.entity.Teacher;
 import com.luobo.repository.TeacherRepository;
 import java.util.List;
@@ -16,50 +17,7 @@ import org.springframework.stereotype.Repository;
  * @version: 1.0
  */
 @Repository
-public class TeacherRepositoryImpl implements TeacherRepository {
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	private Session getCurrentSession() {
-		return this.sessionFactory.openSession();
-	}
-
-	public Teacher load(Long id) {
-		return (Teacher)getCurrentSession().load(Teacher.class,id);
-	}
-
-	public Teacher get(Long id) {
-		return (Teacher)getCurrentSession().get(Teacher.class,id);
-	}
-
-	public List<Teacher> findAll() {
-		String hql = "from Teacher t";
-		Query query = getCurrentSession().createQuery(hql);
-		List<Teacher> teachers = query.list();
-		return teachers;
-	}
-
-	public void persist(Teacher entity) {
-		getCurrentSession().persist(entity);
-	}
-
-	public Long save(Teacher entity) {
-		return (Long)getCurrentSession().save(entity);
-	}
-
-	public void saveOrUpdate(Teacher entity) {
-		getCurrentSession().saveOrUpdate(entity);
-	}
-
-	public void delete(Long id) {
-		Teacher teacher = load(id);
-		getCurrentSession().delete(teacher);
-	}
-
-	public void flush() {
-		getCurrentSession().flush();
-	}
+public class TeacherRepositoryImpl extends BaseRepositoryImpl<Teacher,Long> implements TeacherRepository {
 
 	@Override
 	public Teacher findByNo(String no) {
