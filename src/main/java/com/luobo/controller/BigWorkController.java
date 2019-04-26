@@ -6,6 +6,7 @@ import com.luobo.entity.Teacher;
 import com.luobo.service.BigWorkService;
 import com.luobo.service.StudentService;
 import com.luobo.util.Constants;
+import com.luobo.util.Page;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +33,15 @@ public class BigWorkController {
 	StudentService studentService;
 
 	@RequestMapping("/findAllByTeacher")
-	public String findAllByTeacher(ModelMap map, HttpServletRequest request) {
+	public String findAllByTeacher(ModelMap map,
+		HttpServletRequest request, Integer index, Integer pageSize) {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
-		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
+		Page<BigWork> page = bigWorkService.findAllByTeacher(teacher.getId(),index,pageSize);
+ 		map.addAttribute("workList",page);
+// 		map.addAttribute("index",page.getPageIndex());
+// 		map.addAttribute("size",page.getPageSize());
+// 		map.addAttribute("size",page.getTotal());
+// 		map.addAttribute("size",page.getTotalPages());
 		return "teacher/BigWorkList";
 	}
 
@@ -111,7 +118,7 @@ public class BigWorkController {
 	@RequestMapping("/BigWorkControlList")
 	public String BigWorkControlList(ModelMap map, HttpServletRequest request) {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
-		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
+//		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
 		return "teacher/BigWorkControlList";
 	}
 

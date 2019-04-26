@@ -108,7 +108,7 @@
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${workList}" var="work">
+            <c:forEach items="${workList.elements}" var="work">
                 <tr>
                     <td style="display: none">${work.id}</td>
                     <td>${work.name}</td>
@@ -125,7 +125,23 @@
                 </tr>
             </c:forEach>
         </table>
+        <%--<div class="footer">--%>
+            <%--<span>当前页数${workList.pageIndex}</span>--%>
+            <%--<span>总页数${workList.totalPages}</span>--%>
+            <%--<span>页大小${workList.pageSize}</span>--%>
+        <%--</div>--%>
+        <div class="footer row">
+            <ul class="pagination col-md-4 col-md-offset-4">
+                <li id="prev"><a href="#">&laquo;</a></li>
+                <li><a href="#">当前页数${workList.pageIndex}</a></li>
+                <li id="next"><a href="#">&raquo;</a></li>
+                <li style="visibility:hidden; width:100px;"><a href="#">&raquo;</a></li>
+                <li><a href="#">总页数${workList.totalPages}</a></li>
+            </ul>
+
+        </div>
     </div>
+
 </div>
 
 <!-- Modal -->
@@ -167,6 +183,8 @@
 </script>
 
 <script type="text/javascript">
+    var index = ${workList.pageIndex};
+    var totalPages = ${workList.totalPages};
   $(function () {
     var form = $("#addWorkForm");
     init();
@@ -281,6 +299,26 @@
             }
           }
         });
+      })
+      $("#prev").click(function () {
+        if (index - 1 < 1) {
+          swal("警告", index, "error");
+          return;
+        } else {
+          this.childNodes[0].href =
+              "http://localhost:8080/bigWork/findAllByTeacher?index = "
+              + (index -1)  + "&pageSize=" + ${workList.pageSize};
+        }
+      })
+      $("#next").click(function () {
+        if (index + 1 > totalPages) {
+          swal("警告", index, "error");
+          return;
+        } else {
+          this.childNodes[0].href =
+              "http://localhost:8080/bigWork/findAllByTeacher?index="
+              + (index + 1) + "&pageSize=" + ${workList.pageSize};
+        }
       })
     }
 

@@ -2,12 +2,17 @@ package com.luobo.repository.impl;
 
 import com.luobo.entity.BigWork;
 import com.luobo.repository.BigWorkRepository;
+import com.luobo.util.Page;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,12 +25,29 @@ public class BigWorkRepositoryImpl extends BaseRepositoryImpl<BigWork,Long> impl
 	private static Class<BigWork> bigWorkClass = (Class<BigWork>) BigWork.class;
 
 	@Override
-	public List<BigWork> findAllByTeacher(Long teacherId) {
-		String hql = "from BigWork b where b.teacher.id = :teacherId";
-		Query query = getCurrentSession().createQuery(hql);
-		query.setParameter("teacherId",teacherId);
-		List<BigWork> bigWorks = query.list();
-		return bigWorks;
+	public Page<BigWork> findAllByTeacher(Long teacherId, Integer index, Integer pageSize) {
+//		String hql = "from BigWork b where b.teacher.id = :teacherId";
+//		Query query = getCurrentSession().createQuery(hql);
+//		query.setParameter("teacherId",teacherId);
+//		List<BigWork> bigWorks = query.list();
+		DetachedCriteria criteria = DetachedCriteria.forClass(BigWork.class);
+//		getCurrentSession().createCriteria(BigWork.class)
+
+		criteria.setFetchMode("teacher", FetchMode.JOIN);
+		if (teacherId != null) {
+			criteria.createAlias("teacher", "teacher");
+			criteria.add(Restrictions.eq("teacher.id", teacherId));
+		}
+		if (index == null) {
+			index = 1;
+		}
+		if (pageSize == null) {
+			pageSize = 5;
+		}
+		int totalSize = criteria.getExecutableCriteria(getCurrentSession()).list().size();
+		List<BigWork> bigWorks = (List<BigWork>) criteria.getExecutableCriteria(getCurrentSession()).setFirstResult((index-1)*pageSize).setMaxResults(pageSize).list();
+		Page page = new Page(index,pageSize,totalSize,bigWorks);
+		return page;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import com.luobo.entity.BigWork;
 import com.luobo.repository.BaseRepository;
 import com.luobo.repository.BigWorkRepository;
 import com.luobo.service.BigWorkService;
+import com.luobo.util.Page;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class BigWorkServiceImpl extends BaseServiceImpl<BigWork,Long> implements
 	}
 
 	@Override
-	public List<BigWork> findAllByTeacher(Long teacherId){
-		return repository.findAllByTeacher(teacherId);
+	public Page<BigWork> findAllByTeacher(Long teacherId, Integer index, Integer pageSize){
+		return repository.findAllByTeacher(teacherId, index, pageSize);
 	}
 }
