@@ -36,12 +36,11 @@ public class BigWorkController {
 	public String findAllByTeacher(ModelMap map,
 		HttpServletRequest request, Integer index, Integer pageSize) {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+		if (teacher == null) {
+			return "no session and you must be login in";
+		}
 		Page<BigWork> page = bigWorkService.findAllByTeacher(teacher.getId(),index,pageSize);
  		map.addAttribute("workList",page);
-// 		map.addAttribute("index",page.getPageIndex());
-// 		map.addAttribute("size",page.getPageSize());
-// 		map.addAttribute("size",page.getTotal());
-// 		map.addAttribute("size",page.getTotalPages());
 		return "teacher/BigWorkList";
 	}
 
@@ -50,6 +49,11 @@ public class BigWorkController {
 	public Map<String,Object> addBigWork(BigWork bigWork, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+		if (teacher == null) {
+			result.put("msg", "请登陆！");
+			result.put("code", "201");
+			return result;
+		}
 		bigWork.setTeacher(teacher);
 		bigWork.setOpen(false);
 		bigWorkService.save(bigWork);
@@ -115,8 +119,15 @@ public class BigWorkController {
 		return result;
 	}
 
-	@RequestMapping("/BigWorkControlList")
-	public String BigWorkControlList(ModelMap map, HttpServletRequest request) {
+	@RequestMapping("/BigWorkUploadControlList")
+	public String BigWorkUploadControlList(ModelMap map, HttpServletRequest request) {
+		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
+//		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
+		return "teacher/BigWorkControlList";
+	}
+
+	@RequestMapping("/BigWorkAssessControlList")
+	public String BigWorkAssessControlList(ModelMap map, HttpServletRequest request) {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(Constants.TEACHER_CONTEXT);
 //		map.addAttribute("workList",bigWorkService.findAllByTeacher(teacher.getId()));
 		return "teacher/BigWorkControlList";

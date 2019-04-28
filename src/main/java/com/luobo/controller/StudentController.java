@@ -23,8 +23,8 @@ public class StudentController {
 	StudentService studentService;
 
 	@RequestMapping("/list")
-	public String list(ModelMap map) {
-		map.addAttribute("studentList",studentService.findAll());
+		public String getStudentList(ModelMap map, Integer index, Integer pageSize) {
+		map.addAttribute("studentList",studentService.findByPage(index,pageSize));
 		return "student/index";
 	}
 

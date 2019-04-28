@@ -69,16 +69,12 @@
                 <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                     <ul class="submenu">
                         <li><a href="/bigWork/findAllByTeacher">课题列表</a></li>
-                        <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
-                        <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
-
-                <li><a href="#"><i class="fa fa-cog"></i>信息管理</a>
+                <li><a href="#"><i class="fa fa-cog"></i>控制管理</a>
                     <ul class="submenu">
-                        <li><a href="#">发布信息</a></li>
-                        <li><a href="#">修改信息</a></li>
-                        <li><a href="#">删除信息</a></li>
+                        <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
+                        <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
 

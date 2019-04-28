@@ -46,6 +46,8 @@ public class BigWork {
 
 	private Boolean open;
 
+	private Boolean assessOpen;
+
 	public enum Type{
 		project,//工程设计
 		paper,//学术论文
@@ -53,6 +55,14 @@ public class BigWork {
 	}
 
 	private String remark;
+
+	public Boolean getAssessOpen() {
+		return assessOpen;
+	}
+
+	public void setAssessOpen(Boolean assessOpen) {
+		this.assessOpen = assessOpen;
+	}
 
 	public Score getScore() {
 		return score;

@@ -14,64 +14,107 @@
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <script src="/js/sweet-alert.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/sweet-alert.css">
+    <script src="/js/jquery-accordion-menu.js" type="text/javascript"></script>
+    <link href="/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div class="container">
-    <h1>大作业评价系统-学生操作页面</h1>
-    <hr/>
-    <h2>当前登陆用户：${student.name}</h2>
-    <hr/>
-    <h3>
-        <a href="/bigWork/chooseWork" id="chooseWork" type="button" class="btn btn-primary btn-sm">选择课题</a>
-        <c:if test="${student.bigWork != null}">
-            <a href="/student/updateBigWork" type="button" id="upload" class="btn btn-primary btn-sm">上交作业</a>
-            <a href="#" type="button" id="assessByself" class="btn btn-primary btn-sm">自评</a>
-        </c:if>
-        <a href="/report/export" type="button" class="btn btn-primary btn-sm">作业浏览</a>
-        <a href="/student/list" type="button" class="btn btn-primary btn-sm">互评</a>
-        <a href="/report/export" type="button" class="btn btn-primary btn-sm">查看</a>
-        <a href="/logout" type="button" class="btn btn-primary btn-sm">退出</a>
-    </h3>
-
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th style="display: none">ID</th>
-                <th>学号</th>
-                <th>姓名</th>
-                <th>作业</th>
-                <th>分数</th>
-                <th>操作</th>
-            </tr>
-
-            <c:forEach items="${studentList}" var="student">
-                <tr>
-                    <td style="display: none">${student.id}</td>
-                    <td>${student.number}</td>
-                    <td>${student.name}</td>
-                    <td>
-                        <c:if test="${student.bigWork.projectSrc != null}">
-                            <a href="${student.bigWork.projectSrc}" type="button" class="btn btn-sm btn-success"  target="_blank">浏览</a>
-                        </c:if>
-                    </td>
-                    <td>${student.bigWork.score.selfScore}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${student.bigWork != null}">
-                                <a href="#" type="button" class="btn btn-sm btn-warning update"
-                                   name="${student.bigWork.id}">评分</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="#" type="button" class="btn btn-sm btn-warning update"
-                                   name="${student.bigWork.id}" disabled="true">评分</a>
-                            </c:otherwise>
-                        </c:choose>
-
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h1>大作业评价系统-学生操作页面</h1>
+        <hr/>
+        <h2>当前登陆用户：${student.name}</h2>
+        <hr/>
+    </div>
 </div>
+<div class="row">
+    <div class="col-md-2 content">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu white" style="height: 400px">
+            <div class="jquery-accordion-menu-header" id="form"></div>
+            <ul id="demo-list">
+                <li><a href="#"><i class="fa fa-file-image-o"></i>个人中心</a>
+                    <span class="jquery-accordion-menu-label">
+                12 </span>
+                </li>
+                <li><a href="#"><i class="fa fa-cog"></i>选择课题</a>
+                    <ul class="submenu">
+                        <li><a href="/bigWork/chooseWork" id="chooseWork">课题列表</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-cog"></i>作业上传</a>
+                    <ul class="submenu">
+                        <c:if test="${student.bigWork != null}">
+                        <li><a href="/student/updateBigWork" id="upload">作业上传</a></li>
+                        </c:if>
+                        <li><a href="#">作业浏览</a></li>
+                    </ul>
+                </li>
 
+                <li><a href="#"><i class="fa fa-cog"></i>学生评价</a>
+                    <ul class="submenu">
+                    <c:if test="${student.bigWork != null}">
+                        <li><a href="#"  id="assessByself">自我评价</a></li>
+                    </c:if>
+                        <li><a href="/student/list">互相评价</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/logout"><i class="fa fa-file-image-o"></i>退出</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8  col-md-offset-1 container">
+        <div style="height: 400px;border:1px solid #92bbde">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th style="display: none">ID</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>作业</th>
+                    <th>分数</th>
+                    <th>操作</th>
+                </tr>
+
+                <c:forEach items="${studentList.elements}" var="student">
+                    <tr>
+                        <td style="display: none">${student.id}</td>
+                        <td>${student.number}</td>
+                        <td>${student.name}</td>
+                        <td>
+                            <c:if test="${student.bigWork.projectSrc != null}">
+                                <a href="${student.bigWork.projectSrc}" type="button" class="btn btn-sm btn-success"  target="_blank">浏览</a>
+                            </c:if>
+                        </td>
+                        <td>${student.bigWork.score.selfScore}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${student.bigWork != null}">
+                                    <a href="#" type="button" class="btn btn-sm btn-warning update"
+                                       name="${student.bigWork.id}">评分</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="#" type="button" class="btn btn-sm btn-warning update"
+                                       name="${student.bigWork.id}" disabled="true">评分</a>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <div class="footer">
+            <ul class="pagination">
+                <li id="prev"><a href="#">&laquo;</a></li>
+                <li><a href="#">当前页数1</a></li>
+                <li><a href="#">页大小5</a></li>
+                <li id="next"><a href="#">&raquo;</a></li>
+                <li style="visibility:hidden; width:100px;"><a href="#">&raquo;</a></li>
+                <li><a href="#">总页数1</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
@@ -133,7 +176,7 @@
             data: {"selfScore": total
               , "selfScoreStr": str,"bigWorkId":${student.bigWork.id}},
             async: false,
-            url: "/score/save",
+            url: "/score/saveOrUpdate",
             success: function (data) {
               if (data.code == "0") {
                 window.location.href = "/student/list";
@@ -193,6 +236,20 @@
           $("#myModal").modal('show');
         })
     }
+</script>
+
+<script type="text/javascript">
+  jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    //顶部导航切换
+    $("#demo-list li").click(function(){
+      $("#demo-list li.active").removeClass("active")
+      $(this).addClass("active");
+    })
+  })
 </script>
 </body>
 </html>

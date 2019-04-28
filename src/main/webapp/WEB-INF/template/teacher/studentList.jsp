@@ -66,25 +66,21 @@
                     <span class="jquery-accordion-menu-label">
                 12 </span>
                 </li>
-                <li><a href="#"><i class="fa fa-cog"></i>学生管理</a>
+                <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                     <ul class="submenu">
-                        <li><a href="/bigWork/findAllByTeacher">学生列表</a></li>
+                        <li><a href="/bigWork/findAllByTeacher">课题列表</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-cog"></i>控制管理</a>
+                    <ul class="submenu">
                         <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
                         <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
 
-                <li><a href="#"><i class="fa fa-cog"></i>信息管理</a>
-                    <ul class="submenu">
-                        <li><a href="#">发布信息</a></li>
-                        <li><a href="#">修改信息</a></li>
-                        <li><a href="#">删除信息</a></li>
-                    </ul>
-                </li>
-
                 <li><a href="#"><i class="fa fa-cog"></i>评价统计</a>
                     <ul class="submenu">
-                        <li><a href="#">评价学生</a></li>
+                        <li><a href="/teacher/findAllStudent">评价学生</a></li>
                         <li><a href="#">统计</a></li>
                     </ul>
                 </li>
@@ -111,7 +107,7 @@
                     <td>${student.name}</td>
                     <td>
                         <a href="#" type="button" class="btn btn-sm btn-success update"
-                           name="${student.id}" open="false">评分</a>
+                           name="${student.bigWork.id}" open="false">评分</a>
 
                 </tr>
             </c:forEach>
@@ -119,6 +115,47 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">评分明细</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="scoreForm">
+                    <div class="form-group">
+                        <label>结构设计:</label>
+                        <input type="text" class="form-control" id="score1" name="score1"
+                               placeholder="Enter Nickname:"/>
+                    </div>
+                    <div class="form-group">
+                        <label>代码编写:</label>
+                        <textarea type="text" class="form-control" id="score2" name="score2"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>界面设计:</label>
+                        <textarea type="text" class="form-control" id="score3" name="score3"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>创新性:</label>
+                        <textarea type="text" class="form-control" id="score4" name="score4"
+                                  placeholder="Enter FirstName:"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                        <button id="goBack" type="button" class="btn btn-sm btn-default">返回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
   jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
@@ -131,9 +168,65 @@
     var url;
 
     function init() {
+      initData();
       registerEvent();
     }
 
+    function initData() {
+      form.validate({
+        submitHandler: function () {
+          var score1 = parseFloat($("#score1").val());
+          var score2 = parseFloat($("#score2").val());
+          var score3 = parseFloat($("#score3").val());
+          var score4 = parseFloat($("#score4").val());
+          var total = score1 + score2 + score3 + score4;
+          var str = score1 + "," + score2 + "," + score3 + "," + score4;
+          $.ajax({
+            type: "POST",
+            data: {"selfScore": total
+              , "selfScoreStr": str,"bigWorkId":this.name},
+            async: false,
+            url: "/score/save",
+            success: function (data) {
+              if (data.code == "0") {
+                window.location.href = "/student/list";
+              } else {
+                swal("警告", data.msg, "error");
+              }
+            }
+          });
+          return false;
+        },
+        rules: {
+          score1: {
+            required: true,
+          },
+          score2: {
+            required: true,
+          },
+          score3: {
+            required: true,
+          },
+          score4: {
+            required: true,
+          },
+        },
+        messages: {
+          score1: {
+            required: "分数不能为空",
+          },
+          score2: {
+            required: "分数不能为空",
+          },
+          score3: {
+            required: "分数不能为空",
+          },
+          score4: {
+            required: "分数不能为空",
+          },
+        }
+      });
+    }
     function registerEvent() {
       //顶部导航切换
       $("#demo-list li").click(function () {
@@ -141,21 +234,13 @@
         $(this).addClass("active");
       })
 
-      $(".update").on('click', function () {
-        $.ajax({
-          type: "POST",
-          data: {"open": this.attributes.open.nodeValue, "id": this.name},
-          async: false,
-          url: "/bigWork/update",
-          success: function (data) {
-            if (data.code == "0") {
-              location.reload();
-            } else {
-              swal("警告", data.msg, "error");
-            }
-          }
-        });
+      $("#goBack").click(function () {
+        $("#myModal").modal('hide');
       })
+      $(".update").click(function () {
+        $("#myModal").modal('show');
+      })
+
     }
 
   })

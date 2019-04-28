@@ -4,6 +4,7 @@ import com.luobo.entity.Student;
 import com.luobo.repository.BaseRepository;
 import com.luobo.repository.StudentRepository;
 import com.luobo.service.StudentService;
+import com.luobo.util.Page;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,4 +34,11 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long> implements
 	public List<Student> findAllByTeacher(Long teacherId) {
 		return repository.findAllByTeacher(teacherId);
 	}
+
+	@Override
+	public Page<Student> findByPage(Integer index, Integer pageSize) {
+		return repository.findByPage(index, pageSize);
+	}
+
+
 }

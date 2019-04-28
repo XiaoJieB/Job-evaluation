@@ -26,9 +26,9 @@ public class ScoreController {
 	@Autowired
 	BigWorkService bigWorkService;
 
-	@RequestMapping("/save")
+	@RequestMapping("/saveOrUpdate")
 	@ResponseBody
-	public Map<String,Object> addScore(Score score)
+	public Map<String,Object> saveOrUpdateScore(Score score)
 		throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		BigWork bigWork = bigWorkService.get(score.getBigWorkId());

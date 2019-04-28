@@ -36,7 +36,7 @@ public class Score {
 
 	private Double teacherScore;
 
-	private String teacherScoreStr;
+	private String teacherScoreStr;//tag:xx,xx,xx,xx
 
 	private Double teacherRatio;
 

@@ -69,16 +69,12 @@
                 <li><a href="#"><i class="fa fa-cog"></i>课题管理</a>
                     <ul class="submenu">
                         <li><a href="/bigWork/findAllByTeacher">课题列表</a></li>
-                        <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
-                        <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
-
-                <li><a href="#"><i class="fa fa-cog"></i>信息管理</a>
+                <li><a href="#"><i class="fa fa-cog"></i>控制管理</a>
                     <ul class="submenu">
-                        <li><a href="#">发布信息</a></li>
-                        <li><a href="#">修改信息</a></li>
-                        <li><a href="#">删除信息</a></li>
+                        <li><a href="/bigWork/BigWorkControlList">上传控制</a></li>
+                        <li><a href="#">评价控制</a></li>
                     </ul>
                 </li>
 
@@ -114,12 +110,12 @@
                     <td>${work.name}</td>
                     <td>
                         <a href="#" type="button" class="btn btn-sm btn-success view"
-                           name="${work.id}">详情</a>
+                           name="${work.id}">查看课题</a>
                         <c:if test="${work.studentId == null}">
                             <a href="#" type="button" class="btn btn-sm btn-warning update"
-                               name="${work.id}">修改</a>
+                               name="${work.id}">修改课题</a>
                             <a href="#" type="button" class="btn btn-sm btn-danger delete"
-                               name="${work.id}">删除</a>
+                               name="${work.id}">删除课题</a>
                         </c:if>
                     </td>
                 </tr>
@@ -131,17 +127,17 @@
             <%--<span>页大小${workList.pageSize}</span>--%>
         <%--</div>--%>
         <div class="footer row">
-            <ul class="pagination col-md-4 col-md-offset-4">
+            <ul class="pagination">
                 <li id="prev"><a href="#">&laquo;</a></li>
                 <li><a href="#">当前页数${workList.pageIndex}</a></li>
+                <li><a href="#">页大小${workList.pageSize}</a></li>
                 <li id="next"><a href="#">&raquo;</a></li>
                 <li style="visibility:hidden; width:100px;"><a href="#">&raquo;</a></li>
                 <li><a href="#">总页数${workList.totalPages}</a></li>
+                <li style="visibility:hidden; width:50px;"><a href="#">总页数${workList.totalPages}</a></li>
             </ul>
-
         </div>
     </div>
-
 </div>
 
 <!-- Modal -->
