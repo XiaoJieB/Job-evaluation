@@ -84,7 +84,7 @@ public class BigWorkController {
 			result.put("code", "0");
 		} else {
 			result.put("msg", "作业不存在");
-			result.put("code", "201");
+			result.put("code", "202");
 		}
 		return result;
 	}

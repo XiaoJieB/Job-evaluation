@@ -3,8 +3,10 @@ package com.luobo.repository.impl;
 import com.luobo.entity.Student;
 import com.luobo.repository.BigWorkRepository;
 import com.luobo.repository.StudentRepository;
+import com.luobo.util.Page;
 import java.util.List;
 import org.hibernate.Query;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -48,5 +50,20 @@ public class StudentRepositoryImpl extends BaseRepositoryImpl<Student,Long> impl
 		query.setParameterList("studentIds", studentIds);
 		List<Student> students = query.list();
 		return students;
+	}
+
+	@Override
+	public Page<Student> findByPage(Integer index, Integer pageSize) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Student.class);
+		if (index == null) {
+			index = 1;
+		}
+		if (pageSize == null) {
+			pageSize = 5;
+		}
+		int totalSize = criteria.getExecutableCriteria(getCurrentSession()).list().size();
+		List<Student> bigWorks = (List<Student>) criteria.getExecutableCriteria(getCurrentSession()).setFirstResult((index-1)*pageSize).setMaxResults(pageSize).list();
+		Page page = new Page(index,pageSize,totalSize,bigWorks);
+		return page;
 	}
 }
